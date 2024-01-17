@@ -2,9 +2,29 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Title</title>
+    <title>인덱스</title>
 </head>
+<script>
+
+    const EventListener = 'DOMContentLoaded';
+
+    document.addEventListener(EventListener, onClickEvent);
+
+    function onClickEvent() {
+
+        let calenderBtn = document.getElementById('moveCalenderBtn');
+        calenderBtn.addEventListener('click', calenderMove);
+
+        function calenderMove() {
+
+            location.href = '/calender';
+        }
+    }
+
+</script>
 <body>
-hello###
+<div>
+    <button id="moveCalenderBtn">캘린더 이동</button>
+</div>
 </body>
 </html>
