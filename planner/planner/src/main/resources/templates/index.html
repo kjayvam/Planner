@@ -8,28 +8,28 @@
     <style>
         html,body {
          height: 100%;
-        }   
+        }
     </style>
 </head>
 <body class="text-center">
 <!-- container는 가장 상위 요소 -->
 <!-- h-100: height100% -->
-<div class="container h-100"  > 
+<div class="container h-100"  >
 	<!-- row는 간단하게 설명하자면 콘텐츠영역을 감싸는 상위요소입니다. -->
     <!-- align-items-center: 수직중앙정렬 -->
 	<div class="row d-flex align-items-center h-100"> <!-- 이 영역은 콘텐츠 2개를 포함합니다.-->
     	<!-- col-md-숫자는 콘텐츠영역입니다.  -->
-    	<div class="col-md-6"> 
+    	<div class="col-md-6">
             <!-- 캘린더 이미지 -->
         	이미지
         </div>
 
-        <div class="col-md-6 "> 
+        <div class="col-md-6 ">
             <!-- 로그인 화면 -->
         	<form action="login.jsp" method="post">
                 <img class="mb-6" src="" alt="">
                 <h1 class="h3 mb-3 fw-normal">로고</h1>
-                
+
                 <div class="form-floating ">
                    <input type="text" class="form-control" id="id" placeholder="아이디 입력...">
                    <label for="id">아이디</label>
@@ -38,7 +38,7 @@
                    <input type="password" class="form-control" id="pwd" placeholder="Password">
                    <label for="pwd">비밀번호</label>
                 </div>
-                
+
                 <p class="checkbox mb-6 text-start">
                    <label>
                       <input type="checkbox" value="remember-me"> 아이디 저장
@@ -49,11 +49,9 @@
              </form>
         </div>
     </div>
-    
-    
-    
+
+
+
 </div>
 
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-kenU1KFdBIe4zVF0s0G1M5b4hcpxyD9F7jL+jjXkk+Q2h455rYXK/7HAuoJl+0I4" crossorigin="anonymous"></script>
-</body>
-</html>
