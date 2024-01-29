@@ -1,111 +1,250 @@
 <!DOCTYPE html>
 <html lang="UTF-8">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>learn-bootstrap</title>
-  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-rbsA2VBKQhggwzxH7pPCaAqO46MgnOM80zW1RWuH61DGLwZJEdK2Kadq2F9CUG65" crossorigin="anonymous">
-  <!-- 아이콘쓸수있게해주는 cdn 링크 -->
-  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>learn-bootstrap</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" rel="stylesheet"
+          integrity="sha384-rbsA2VBKQhggwzxH7pPCaAqO46MgnOM80zW1RWuH61DGLwZJEdK2Kadq2F9CUG65" crossorigin="anonymous">
+    <!-- 날짜,시간제이쿼리  -->
+    <link rel="stylesheet"
+          href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.9.0/css/bootstrap-datepicker.min.css"/>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css"/>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.4/font/bootstrap-icons.css"/>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/clockpicker/0.0.7/bootstrap-clockpicker.css"
+          integrity="sha512-BB0bszal4NXOgRP9MYCyVA0NNK2k1Rhr+8klY17rj4OhwTmqdPUQibKUDeHesYtXl7Ma2+tqC6c7FzYuHhw94g=="
+          crossorigin="anonymous" referrerpolicy="no-referrer"/>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/clockpicker/0.0.7/bootstrap-clockpicker.min.css"
+          integrity="sha512-MT4B7BDQpIoW1D7HNPZNMhCD2G6CDXia4tjCdgqQLyq2a9uQnLPLgMNbdPY7g6di3hHjAI8NGVqhstenYrzY1Q=="
+          crossorigin="anonymous" referrerpolicy="no-referrer"/>
+
+
+    <!-- 아이콘쓸수있게해주는 cdn 링크 -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
     <style>
-        html,body {
-         height: 100%;
-        }   
+        html, body {
+            height: 100%;
+        }
     </style>
 </head>
 <body class="text-center">
-    <!-- 네비바 -->
-    <nav class="navbar navbar-light bg-light">
-      <div class="container-fluid">
+<!-- 네비바 -->
+<nav class="navbar navbar-light bg-light">
+    <div class="container-fluid">
         <a class="navbar-brand">Navbar</a>
         <form class="d-flex">
-          <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
-          <!-- 아이콘 -->
-          <i class="bi bi-person-circle fs-5"></i>
+            <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
+            <!-- 아이콘 -->
+            <i class="bi bi-person-circle fs-5"></i>
         </form>
-      </div>
-    </nav>
-    <div class="row d-flex align-items-center ">
-      <div class="w-25"> 
+    </div>
+</nav>
+<div class="row d-flex align-items-center ">
+    <div class="w-25">
         <div class="btn-group" role="group" aria-label="Basic outlined example">
-          <button type="button" class="btn btn-outline-primary">플랜 만들기</button>
-          <button type="button" class="btn btn-outline-primary">할일 만들기</button>
+            <button type="button" class="btn btn-outline-primary" data-bs-toggle="modal" data-bs-target="#plan">플랜 만들기
+            </button>
+            <button type="button" class="btn btn-outline-primary">할일 만들기</button>
         </div>
-      </div>
-      <div class="w-50 text-start"> 
+    </div>
+    <div class="w-50 text-start">
         <i class="bi bi-calendar"></i>
         날짜
         <i class="bi bi-chevron-left"></i>
         <i class="bi bi-chevron-right"></i>
-      </div>
-      <div class="w-25"> 
+    </div>
+    <div class="w-25">
         <div class="btn-group" role="group" aria-label="Basic outlined example">
-          <button type="button" class="btn btn-outline-primary">월간 보기</button>
-          <button type="button" class="btn btn-outline-primary">주간 보기</button>
+            <button type="button" class="btn btn-outline-primary">월간 보기</button>
+            <button type="button" class="btn btn-outline-primary">주간 보기</button>
         </div>
-      </div>
     </div>
+</div>
 
-    <div class="row d-flex text-start h-100">
-      <div class="w-25"> 
+<div class="row d-flex text-start h-100">
+    <div class="w-25">
         <div>
-          할 일 한눈에 보기
-          <i class="bi bi-chevron-right"></i>
+            할 일 한눈에 보기
+            <i class="bi bi-chevron-right"></i>
         </div>
         <div>
-          내 플랜
-          <i class="bi bi-chevron-up"></i>
-          <i class="bi bi-chevron-down"></i>
-          <i class="bi bi-plus-lg"></i>
+            <div>
+                내 플랜
+                <i class="bi bi-chevron-up"></i>
+                <i class="bi bi-chevron-down"></i>
+                <i class="bi bi-plus-lg"></i>
+            </div>
+            <div>
+                <div class="form-check">
+                    <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault">
+                    <label class="form-check-label" for="flexCheckDefault">
+                        Default checkbox
+                    </label>
+                </div>
+                <div class="form-check">
+                    <input class="form-check-input" type="checkbox" value="" id="flexCheckChecked" checked>
+                    <label class="form-check-label" for="flexCheckChecked">
+                        Checked checkbox
+                    </label>
+                </div>
+            </div>
         </div>
         <div>
-          팀 플랜
-          <i class="bi bi-chevron-up"></i>
-          <i class="bi bi-chevron-down"></i>
-          <i class="bi bi-plus-lg"></i>
+            <div>
+                팀 플랜
+                <i class="bi bi-chevron-up"></i>
+                <i class="bi bi-chevron-down"></i>
+                <i class="bi bi-plus-lg"></i>
+            </div>
+            <div>
+                <div class="form-check">
+                    <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault">
+                    <label class="form-check-label" for="flexCheckDefault">
+                        Default checkbox
+                    </label>
+                </div>
+                <div class="form-check">
+                    <input class="form-check-input" type="checkbox" value="" id="flexCheckChecked" checked>
+                    <label class="form-check-label" for="flexCheckChecked">
+                        Checked checkbox
+                    </label>
+                </div>
+            </div>
         </div>
-      </div>
-      <div class="w-50"> 
+    </div>
+    <div class="w-50">
         달력
-      </div>
-      <div class="w-25"> 
-        <div>
-          날짜
-        </div>
-        <div>
-          일정정보
-        </div>
-      </div>
     </div>
+    <div class="w-25">
+        <div>
+            날짜
+        </div>
+        <div>
+            일정정보
+        </div>
+    </div>
+</div>
 
-    <div class="modal" tabindex="-1">
-      <div class="modal-dialog">
+<!-- Modal plan 스태틱설정(밖화면눌러도안나가짐)-->
+<div class="modal fade " id="plan" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
+     aria-labelledby="planLabel" aria-hidden="true">
+    <!-- 모달클래스로 라지크기, 중앙정렬 -->
+    <div class="modal-dialog modal-dialog-centered modal-lg">
         <div class="modal-content">
-          <div class="modal-header">
-            <h5 class="modal-title">Modal title</h5>
-            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-          </div>
-          <div class="modal-body">
-            <p>Modal body text goes here.</p>
-          </div>
-          <div class="modal-footer">
-            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-            <button type="button" class="btn btn-primary">Save changes</button>
-          </div>
+            <div class="modal-header container">
+                <input type="color" class="form-control form-control-color" id="color" value="#000000" title="">
+                <input type="text" class="form-control w-75" id="title" placeholder="제목입력">
+                <label for="share" class="col-1 col-form-label">
+                <i class="bi bi-share"></i>
+                </label>
+                    공유
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <!-- 내용 -->
+            <div class="modal-body text-start">
+                <div class="container mb-2">
+                    <div class="row">
+                        <label for="date" class="col-1 col-form-label">
+                            <i class="bi bi-clock"></i>
+                        </label>
+                        <div class="col">
+                            <div class="input-group date w-25" id="datepicker">
+                                <input type="text" class="form-control" id="date" placeholder="날짜선택"/>
+                                <span class="input-group-append">
+              <span class="input-group-text bg-light d-block">
+                <i class="fa fa-calendar"></i>
+              </span>
+            </span>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+                <div class="container mb-2">
+                    <div class="row">
+                        <label for="planSelect" class="col-1 col-form-label">
+                            <i class="bi bi-calendar"></i>
+                        </label>
+                        <div class="col">
+                            <select class="form-select w-50" aria-label="plan" id="planSelect">
+                                <option selected>해당플랜선택</option>
+                                <option value="1">One</option>
+                                <option value="2">Two</option>
+                                <option value="3">Three</option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+                <div>
+                    <div class="container mb-2">
+                        <div class="row">
+                            <label for="map" class="col-1 col-form-label">
+                                <i class="bi bi-geo-alt"></i>
+                            </label>
+                            <div class="col">
+                                <input type="text" class="form-control w-50" id="map" placeholder="장소입력하기">
+                            </div>
+                        </div>
+
+                    </div>
+
+                </div>
+                <div class="container mb-2">
+                    <div class="row">
+                        <label for="repeat" class="col-1 col-form-label">
+                            <i class="bi bi-arrow-repeat"></i>
+                        </label>
+                        <div class="col">
+                            <select class="form-select w-25" aria-label="repeat" id="repeat">
+                                <option selected>반복없음</option>
+                                <option value="1">One</option>
+                                <option value="2">Two</option>
+                                <option value="3">Three</option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+                <div class="container mb-2">
+                    <div class="row">
+                        <label for="alram" class="col-1 col-form-label">
+                            <i class="bi bi-bell"></i>
+                        </label>
+                        <div class="col">
+                            <select class="form-select w-25" aria-label="alram" id="alram">
+                                <option selected>10분전</option>
+                                <option value="1">One</option>
+                                <option value="2">Two</option>
+                                <option value="3">Three</option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+                <div class="container mb-2">
+                    <div class="row">
+                        <label for="contents" class="col-1 col-form-label">
+                            <i class="bi bi-body-text"></i>
+                        </label>
+                        <div class="col">
+                            <textarea class="form-control" id="contents" rows="3" placeholder="내용입력..."></textarea>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+                <button type="button" class="btn btn-primary">Confirm</button>
+            </div>
         </div>
-      </div>
     </div>
-
-    <!-- Vertically centered modal -->
-<div class="modal-dialog modal-dialog-centered">
-  ...
 </div>
 
-<!-- Vertically centered scrollable modal -->
-<div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
-  ...
-</div>
-    
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-kenU1KFdBIe4zVF0s0G1M5b4hcpxyD9F7jL+jjXkk+Q2h455rYXK/7HAuoJl+0I4" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-kenU1KFdBIe4zVF0s0G1M5b4hcpxyD9F7jL+jjXkk+Q2h455rYXK/7HAuoJl+0I4"
+        crossorigin="anonymous"></script>
+<!-- 날짜 시간 제이쿼리-->
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.1.3/js/bootstrap.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.9.0/js/bootstrap-datepicker.min.js"></script>
+<script src="date-picker.js"></script>
 </body>
 </html>
