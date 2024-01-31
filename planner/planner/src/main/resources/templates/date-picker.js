@@ -1,8 +1,7 @@
 $(function () {
-    $("#datepicker").datepicker();
+    $("#plandatepicker").datepicker();
+    $("#scheduledatepicker").datepicker();
 });
-
-$(".clockpicker").clockpicker();
 
 $('img.ui-datepicker-trigger').css({'cursor':'pointer', 'margin-left':'5px'});  //아이콘(icon) 위치
 

@@ -29,22 +29,21 @@
 </head>
 <body class="text-center">
 <!-- 네비바 -->
-<nav class="navbar navbar-light bg-light">
+<nav class="navbar navbar-light bg-light mb-2">
     <div class="container-fluid">
         <a class="navbar-brand">Navbar</a>
         <form class="d-flex">
             <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
             <!-- 아이콘 -->
-            <i class="bi bi-person-circle fs-5"></i>
+            <i class="bi bi-person-circle align-self-center"></i>
         </form>
     </div>
 </nav>
-<div class="row d-flex align-items-center ">
+<div class="row d-flex align-items-center mb-2">
     <div class="w-25">
         <div class="btn-group" role="group" aria-label="Basic outlined example">
-            <button type="button" class="btn btn-outline-primary" data-bs-toggle="modal" data-bs-target="#plan">플랜 만들기
-            </button>
-            <button type="button" class="btn btn-outline-primary">할일 만들기</button>
+            <button type="button" class="btn btn-outline-primary" data-bs-toggle="modal" data-bs-target="#plan">플랜 만들기</button>
+            <button type="button" class="btn btn-outline-primary" data-bs-toggle="modal" data-bs-target="#schedule">할일 만들기</button>
         </div>
     </div>
     <div class="w-50 text-start">
@@ -61,9 +60,9 @@
     </div>
 </div>
 
-<div class="row d-flex text-start h-100">
+<div class="row d-flex h-100">
     <div class="w-25">
-        <div>
+        <div class="mb-2" data-bs-toggle="modal" data-bs-target="#scheduleAll">
             할 일 한눈에 보기
             <i class="bi bi-chevron-right"></i>
         </div>
@@ -132,8 +131,8 @@
     <div class="modal-dialog modal-dialog-centered modal-lg">
         <div class="modal-content">
             <div class="modal-header container">
-                <input type="color" class="form-control form-control-color" id="color" value="#000000" title="">
-                <input type="text" class="form-control w-75" id="title" placeholder="제목입력">
+                <input type="color" class="form-control form-control-color" id="planColor" value="#000000" title="">
+                <input type="text" class="form-control w-75" id="palnTitle" placeholder="제목입력">
                 <label for="share" class="col-1 col-form-label">
                 <i class="bi bi-share"></i>
                 </label>
@@ -144,12 +143,12 @@
             <div class="modal-body text-start">
                 <div class="container mb-2">
                     <div class="row">
-                        <label for="date" class="col-1 col-form-label">
+                        <label for="palnDate" class="col-1 col-form-label">
                             <i class="bi bi-clock"></i>
                         </label>
                         <div class="col">
-                            <div class="input-group date w-25" id="datepicker">
-                                <input type="text" class="form-control" id="date" placeholder="날짜선택"/>
+                            <div class="input-group date w-25" id="plandatepicker">
+                                <input type="text" class="form-control" id="palnDate" placeholder="날짜선택"/>
                                 <span class="input-group-append">
               <span class="input-group-text bg-light d-block">
                 <i class="fa fa-calendar"></i>
@@ -166,7 +165,7 @@
                             <i class="bi bi-calendar"></i>
                         </label>
                         <div class="col">
-                            <select class="form-select w-50" aria-label="plan" id="planSelect">
+                            <select class="form-select w-50" aria-label="planSelect" id="planSelect">
                                 <option selected>해당플랜선택</option>
                                 <option value="1">One</option>
                                 <option value="2">Two</option>
@@ -178,11 +177,11 @@
                 <div>
                     <div class="container mb-2">
                         <div class="row">
-                            <label for="map" class="col-1 col-form-label">
+                            <label for="palnMap" class="col-1 col-form-label">
                                 <i class="bi bi-geo-alt"></i>
                             </label>
                             <div class="col">
-                                <input type="text" class="form-control w-50" id="map" placeholder="장소입력하기">
+                                <input type="text" class="form-control w-50" id="palnMap" placeholder="장소입력하기">
                             </div>
                         </div>
 
@@ -206,11 +205,11 @@
                 </div>
                 <div class="container mb-2">
                     <div class="row">
-                        <label for="alram" class="col-1 col-form-label">
+                        <label for="palnAlram" class="col-1 col-form-label">
                             <i class="bi bi-bell"></i>
                         </label>
                         <div class="col">
-                            <select class="form-select w-25" aria-label="alram" id="alram">
+                            <select class="form-select w-25" aria-label="palnAlram" id="palnAlram">
                                 <option selected>10분전</option>
                                 <option value="1">One</option>
                                 <option value="2">Two</option>
@@ -221,11 +220,11 @@
                 </div>
                 <div class="container mb-2">
                     <div class="row">
-                        <label for="contents" class="col-1 col-form-label">
+                        <label for="palnContents" class="col-1 col-form-label">
                             <i class="bi bi-body-text"></i>
                         </label>
                         <div class="col">
-                            <textarea class="form-control" id="contents" rows="3" placeholder="내용입력..."></textarea>
+                            <textarea class="form-control" id="palnContents" rows="3" placeholder="내용입력..."></textarea>
                         </div>
                     </div>
                 </div>
@@ -234,6 +233,130 @@
                 <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
                 <button type="button" class="btn btn-primary">Confirm</button>
             </div>
+        </div>
+    </div>
+</div>
+
+<!-- Modal schedule 스태틱설정(밖화면눌러도안나가짐)-->
+<div class="modal fade " id="schedule" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
+     aria-labelledby="scheduleLabel" aria-hidden="true">
+    <!-- 모달클래스로 라지크기, 중앙정렬 -->
+    <div class="modal-dialog modal-dialog-centered modal-lg">
+        <div class="modal-content">
+            <div class="modal-header container">
+                <input type="color" class="form-control form-control-color" id="scheduleColor" value="#000000" title="">
+                <input type="text" class="form-control w-75" id="scheduleTitle" placeholder="제목입력">
+                <label for="scheduleShare" class="col-1 col-form-label">
+                    <i class="bi bi-share"></i>
+                </label>
+                공유
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <!-- 내용 -->
+            <div class="modal-body text-start">
+                <div class="container mb-2">
+                    <div class="row">
+                        <label for="scheduleDate" class="col-1 col-form-label">
+                            <i class="bi bi-clock"></i>
+                        </label>
+                        <div class="col">
+                            <div class="input-group date w-25" id="scheduledatepicker">
+                                <input type="text" class="form-control" id="scheduleDate" placeholder="날짜선택"/>
+                                <span class="input-group-append">
+              <span class="input-group-text bg-light d-block">
+                <i class="fa fa-calendar"></i>
+              </span>
+            </span>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+
+                <div class="container mb-2">
+                    <div class="row">
+                        <label for="scheduleRepeat" class="col-1 col-form-label">
+                            <i class="bi bi-arrow-repeat"></i>
+                        </label>
+                        <div class="col">
+                            <select class="form-select w-25" aria-label="scheduleRepeat" id="scheduleRepeat">
+                                <option selected>반복없음</option>
+                                <option value="1">One</option>
+                                <option value="2">Two</option>
+                                <option value="3">Three</option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+                <div class="container mb-2">
+                    <div class="row">
+                        <label for="scheduleAlram" class="col-1 col-form-label">
+                            <i class="bi bi-bell"></i>
+                        </label>
+                        <div class="col">
+                            <select class="form-select w-25" aria-label="scheduleAlram" id="scheduleAlram">
+                                <option selected>10분전</option>
+                                <option value="1">One</option>
+                                <option value="2">Two</option>
+                                <option value="3">Three</option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+                <div class="container mb-2">
+                    <div class="row">
+                        <label for="scheduleContents" class="col-1 col-form-label">
+                            <i class="bi bi-body-text"></i>
+                        </label>
+                        <div class="col">
+                            <textarea class="form-control" id="scheduleContents" rows="3" placeholder="내용입력..."></textarea>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+                <button type="button" class="btn btn-primary">Confirm</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Modal scheduleAll 스태틱설정(밖화면눌러도안나가짐)-->
+<div class="modal fade " id="scheduleAll" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
+     aria-labelledby="scheduleLabelAll" aria-hidden="true">
+    <!-- 모달클래스로 라지크기, 중앙정렬 -->
+    <div class="modal-dialog modal-dialog-centered modal-lg">
+        <div class="modal-content">
+            <div class="modal-header container">
+                <h1>할 일</h1>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <!-- 내용 -->
+            <div class="modal-body text-start row">
+                <div class="w-25 border-end">
+                    <button type="button" class="btn btn-outline-primary" data-bs-toggle="modal" data-bs-target="#schedule">할 일 만들기</button>
+                    <ul>
+                        <li>
+                            할 일
+                        </li>
+                        <li>
+                            완료한 일
+                        </li>
+                        <li>
+                            중요한 일
+                        </li>
+                    </ul>
+                </div>
+                <div class="w-75">
+                    <ul>
+                        <li>
+                            할일제목1
+                            <i class="bi bi-trash3"></i>
+                            <i class="bi bi-star"></i>
+                        </li>
+                    </ul>
+                </div>
         </div>
     </div>
 </div>
