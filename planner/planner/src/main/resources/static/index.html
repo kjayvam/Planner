@@ -6,20 +6,20 @@
 <script>
 
     const EventListener = 'DOMContentLoaded';
-
     document.addEventListener(EventListener, onClickEvent);
 
     function onClickEvent() {
-
-        let calenderBtn = document.getElementById('moveCalenderBtn');
+/*
+        let calenderBtn = document.getElementsByName('moveCalenderBtn');
         calenderBtn.addEventListener('click', calenderMove);
 
         function calenderMove() {
 
             location.href = '/calender';
         }
+*/
 
-        let boardListBtn = document.getElementById('boardList');
+        let boardListBtn = document.getElementsByName('boardList')[0];
         boardListBtn.addEventListener('click', boardMove);
 
         function boardMove() {
@@ -31,8 +31,7 @@
 </script>
 <body>
 <div>
-    <button id="moveCalenderBtn">캘린더 이동</button>
-    <button id="boardList">게시판 이동</button>
+    <button name="boardList">게시판 이동</button>
 </div>
 </body>
 </html>
