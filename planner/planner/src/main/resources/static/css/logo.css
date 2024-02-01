@@ -1,0 +1,14 @@
+/* 로고 */
+@import url('https://fonts.googleapis.com/css2?family=Dancing+Script&display=swap');
+
+.logo {
+    font-family: 'Dancing Script', cursive;
+    color: #87CEEB;
+    font-size: xxx-large;
+    padding-bottom: 2rem;
+    background: #fff;
+}
+
+button {
+    border: none;
+}

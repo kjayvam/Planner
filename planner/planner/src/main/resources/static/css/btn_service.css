@@ -1,0 +1,24 @@
+/* 리스트 공간 0 */
+.list-group-item {
+    padding: 0;
+    border: none;
+}
+
+/* 버튼 크기 키우기 */
+/* ???
+.list-group-item button {
+    width: 100%;
+    height: 100%;
+}
+*/
+
+/* 리스트 버튼 : hover 색상변경 */
+.d-block li > button:hover {
+    color: #fff;
+    background-color: #87CEEB;
+}
+
+.d-none li > button:hover {
+    color: #fff;
+    background-color: #87CEEB;
+}
