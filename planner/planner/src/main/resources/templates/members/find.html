@@ -1,10 +1,9 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<html lang="UTF-8">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>login page</title>
-    <!--부트스트랩 링크-->
+    <title>learn-bootstrap</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-4bw+/aepP/YC94hEpVNVgiZdgIC5+VKNBQNGCHeKRQN+PtmoHDEXuppvnDJzQIu9" crossorigin="anonymous">
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.bundle.min.js" integrity="sha384-HwwvtgBNo3bZJJLYd8oVXjrBZt8cqVSpeBNS5n7C8IVInixGAoxmnlMuBnhbgrkm" crossorigin="anonymous"></script>
     <!--기본 셋팅-->
@@ -12,25 +11,22 @@
     <!--버튼 스타일-->
     <th:block th:replace="~{members/layouts/member-logo :: css_logo}"/>
     <th:block th:replace="~{members/layouts/member-login :: css_btn_form}"/>
-    <th:block th:replace="~{members/layouts/member-service :: css_btn_service}"/>
     <script src="/static/js/btn-href-controller.js"></script>
 </head>
-
 <body class="text-center">
 <!-- container는 가장 상위 요소 -->
 <!-- h-100: height100% -->
 <div class="container h-100">
     <!-- row는 간단하게 설명하자면 콘텐츠영역을 감싸는 상위요소입니다. -->
-    <!-- align-items-center: 세로중앙정렬 -->
+    <!-- align-items-center: 수직중앙정렬 -->
     <!-- justify-content-center : 가로중앙정렬 -->
     <div class="row d-flex align-items-center h-100 justify-content-center"> <!-- 이 영역은 콘텐츠 2개를 포함합니다.-->
+
+
         <div th:replace="members/layouts/member-image :: image-content"><!--이미지--></div>
-        <!-- 로그인 화면 -->
-        <div class="col-6">
-            <div th:replace="members/layouts/member-logo :: logo-member"><!--로고--></div>
-            <div th:replace="members/layouts/member-login :: form-login"><!--로그인 폼--></div>
-            <div th:replace="members/layouts/member-service :: member-service"><!--회원서비스--></div>
-        </div>
+        <div th:replace="members/layouts/member-find :: form-find"><!--계정 찾기 폼--></div>
+
+
     </div>
 </div>
 </body>
