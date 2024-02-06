@@ -6,7 +6,7 @@
     <title>learn-bootstrap</title>
 
     <!-- reset -->
-    <link href="reset.css" >
+    <!--<link href="reset.css" >-->
 
     <!-- bootstrap5.2.3 -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" rel="stylesheet"
@@ -15,11 +15,92 @@
     <!-- 아이콘쓸수있게해주는 cdn 링크 -->
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
 
+    <!-- fullcalender api -->
+    <script src='https://cdn.jsdelivr.net/npm/fullcalendar@6.1.10/index.global.min.js'></script>
+    <script src='./index.global.js'></script>
+
+    <script>
+
+        document.addEventListener('DOMContentLoaded', function() {
+            var calendarEl = document.getElementById('calendar');
+            var calendar = new FullCalendar.Calendar(calendarEl, {
+                headerToolbar: {
+                    left: 'prev,next today',
+                    center: 'title',
+                    right: 'dayGridMonth,timeGridWeek,timeGridDay,listMonth'
+                },
+                //navLinks: true, // can click day/week names to navigate views
+                businessHours: true, // 주말 회색표시
+                //editable: true,
+                //selectable: true,
+                initialView: 'dayGridMonth',    //월 달력 표시
+                locale: "ko",   //한국어설정
+                themeSystem: 'bootstrap5',  //부트스트랩5와 호환
+                // *일 표시 > * 로 숫자만 표시되게 바꾸기
+                dayCellContent: function (info) {
+                    var number = document.createElement("a");
+                    number.classList.add("fc-daygrid-day-number");
+                    number.innerHTML = info.dayNumberText.replace("일", '').replace("日","");
+                    if (info.view.type === "dayGridMonth") {
+                        return {
+                            html: number.outerHTML
+                        };
+                    }
+                    return {
+                        domNodes: []
+                    };
+                }
+            });
+
+            calendar.render();
+        });
+
+    </script>
+
     <style>
         html, body {
             height: 100%;
         }
+
+         /* input date, time 전체 클릭 */
+         .date-wrap {
+             width: 300px;
+             margin: 0 auto;
+         }
+
+        input {
+            margin: 0 auto;
+            width: 100%;
+            position: relative;
+        }
+
+        ::-webkit-calendar-picker-indicator {
+            position: absolute;
+            right: -7px;
+            top: 7px;
+            transform: translateX(-10px);
+            padding-left: 3000px;
+            height: 100%;
+        }
+
+        /* 일요일 날짜 빨간색 */
+        .fc-day a {
+            color: black;
+            text-decoration: none;
+        }
+
+        .fc-day-sun a {
+            color: red;
+            text-decoration: none;
+        }
+
+        .fc-day-sun a {
+            color: red;
+            text-decoration: none;
+        }
+
     </style>
+
 </head>
 <body class="text-center">
 <!-- 네비바 -->
@@ -109,7 +190,7 @@
         </div>
     </div>
     <div class="w-50">
-        달력
+        <div id='calendar'></div>
     </div>
     <div class="w-25">
         <div>
@@ -198,7 +279,7 @@
                             </label>
                         </div>
                         <div class="col">
-                            <input type="text" class="form-control w-50" id="palnMap" placeholder="장소입력하기">
+                            <input type="text" class="form-control" id="palnMap" placeholder="장소입력하기">
                         </div>
                     </div>
                 </div>
