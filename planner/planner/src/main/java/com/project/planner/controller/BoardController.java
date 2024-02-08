@@ -14,7 +14,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.multipart.MultipartFile;
 
-@Controller // Lombok
+@Controller // SpringBoot
 public class BoardController {
 
     @Autowired  // SpringBoot
