@@ -1,11 +1,20 @@
 package com.project.planner.controller;
 
-import com.project.planner.entity.Member;
+import com.project.planner.dto.LoginDto;
+import com.project.planner.dto.MemberDetailsDto;
+import com.project.planner.dto.SignUpDto;
 import com.project.planner.service.MemberService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.web.authentication.logout.SecurityContextLogoutHandler;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
+
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 @Controller // SpringBoot
 @RequestMapping("/member")  // SpringBoot
@@ -15,7 +24,7 @@ public class MemberController {
     MemberService memberService;
 
     @ResponseBody   // SpringBoot
-    @GetMapping("/#")  // SpringBoot
+    @GetMapping("/#idCheck")  // SpringBoot
     public String idCheck(@RequestParam("id") String id) {  // SpringBoot
 
         String result = null;
@@ -27,14 +36,14 @@ public class MemberController {
         } else {
             result = "fail";
         }
-        return start + result + end;
+        return start + result + end;    // {"result":"result"}
     }
 
     @ResponseBody
-    @PostMapping("/#")
-    public String signUp(@ModelAttribute Member member, Model model) {
+    @PostMapping("/#signUp")
+    public String signUp(@ModelAttribute SignUpDto signUpDto, Model model) {
 
-        boolean result = memberService.signUp(member);
+        boolean result = memberService.signUp(signUpDto);
 
         if (result) {
             model.addAttribute("msg", "회원가입 성공");
@@ -44,12 +53,24 @@ public class MemberController {
         return "signup";
     }
 
-    @PostMapping("#")
-    public String login(Member member) {
+    @PostMapping("/#login")
+    public String login(LoginDto loginDto, HttpSession session) {
 
-        // 미완성
+        MemberDetailsDto member = memberService.login(loginDto);
+
+        session.setAttribute("member", member);
 
         return "redirect:/";
     }
 
+    @GetMapping("/#logout")
+    public String logout(HttpServletRequest request, HttpServletResponse response) throws Exception {
+
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        if(authentication != null) {
+            new SecurityContextLogoutHandler().logout(request, response, authentication);
+        }
+
+        return "redirect:/";
+    }
 }

@@ -9,7 +9,7 @@ import javax.persistence.Id;
 
 @Entity // JPA
 @Data   // Lombok
-public class Plans {
+public class PlansEntity {
 
     @Id // JPA
     @GeneratedValue(strategy = GenerationType.IDENTITY) // JPA

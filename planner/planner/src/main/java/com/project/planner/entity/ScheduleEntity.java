@@ -9,7 +9,7 @@ import javax.persistence.Id;
 
 @Entity // JPA
 @Data   // Lombok
-public class Schedule {
+public class ScheduleEntity {
 
     @Id // JPA
     @GeneratedValue(strategy = GenerationType.IDENTITY) // JPA

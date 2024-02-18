@@ -9,7 +9,7 @@ import javax.persistence.Id;
 
 @Entity // JPA
 @Data   // Lombok
-public class Alarm {
+public class AlarmEntity {
 
 
     @Id // JPA
