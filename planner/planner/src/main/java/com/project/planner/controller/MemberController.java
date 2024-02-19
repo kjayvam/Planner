@@ -85,4 +85,13 @@ public class MemberController {
 
         return "./#idSearchResult";
     }
+
+    @PostMapping("/#pwFind")
+    public String pwFind(@ModelAttribute FindDto findDto) {
+
+        memberService.pwFind(findDto);
+
+        return "redirect:/";
+    }
+
 }

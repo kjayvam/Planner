@@ -23,4 +23,6 @@ public interface MemberRepository extends JpaRepository<MemberEntity, Integer> {
 
     boolean existsById(@Param("id") String id);
 
+    MemberEntity findByIdAndEmail(String id, String email);
+
 }
