@@ -1,5 +1,6 @@
 package com.project.planner.service;
 
+import com.project.planner.dto.FindDto;
 import com.project.planner.dto.LoginDto;
 import com.project.planner.dto.MemberDetailsDto;
 import com.project.planner.dto.SignUpDto;
@@ -9,6 +10,9 @@ import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
+
+import java.util.ArrayList;
+import java.util.List;
 
 @Service    // SpringBoot
 public class MemberService {
@@ -55,5 +59,23 @@ public class MemberService {
             return member;
         }
         return null;
+    }
+
+    public List<FindDto> idFind(FindDto findDto) {
+
+        List<MemberEntity> idEntityList = memberRepository.findByEmail(findDto.getEmail());
+
+        List<FindDto> idDtoList = new ArrayList<>();
+
+        for (MemberEntity entity : idEntityList) {
+
+            FindDto dto = new FindDto();
+
+            dto.setId(entity.getId());
+
+            idDtoList.add(dto);
+        }
+
+        return idDtoList;
     }
 }

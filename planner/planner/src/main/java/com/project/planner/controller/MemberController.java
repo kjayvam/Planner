@@ -1,5 +1,6 @@
 package com.project.planner.controller;
 
+import com.project.planner.dto.FindDto;
 import com.project.planner.dto.LoginDto;
 import com.project.planner.dto.MemberDetailsDto;
 import com.project.planner.dto.SignUpDto;
@@ -15,6 +16,7 @@ import org.springframework.web.bind.annotation.*;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
+import java.util.List;
 
 @Controller // SpringBoot
 @RequestMapping("/member")  // SpringBoot
@@ -24,7 +26,7 @@ public class MemberController {
     MemberService memberService;
 
     @ResponseBody   // SpringBoot
-    @GetMapping("/#idCheck")  // SpringBoot
+    @PostMapping("/#idCheck")  // SpringBoot
     public String idCheck(@RequestParam("id") String id) {  // SpringBoot
 
         String result = null;
@@ -63,7 +65,7 @@ public class MemberController {
         return "redirect:/";
     }
 
-    @GetMapping("/#logout")
+    @PostMapping("/#logout")
     public String logout(HttpServletRequest request, HttpServletResponse response) throws Exception {
 
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
@@ -72,5 +74,15 @@ public class MemberController {
         }
 
         return "redirect:/";
+    }
+
+    @GetMapping("/#idFind")
+    public String idFind(@ModelAttribute FindDto findDto, Model model) {
+
+        List<FindDto> idList = memberService.idFind(findDto);
+
+        model.addAttribute("idList", idList);
+
+        return "./#idSearchResult";
     }
 }

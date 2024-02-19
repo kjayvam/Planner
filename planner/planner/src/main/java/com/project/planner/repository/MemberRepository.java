@@ -7,14 +7,19 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
+import java.util.List;
+
 @Repository // SpringBoot
 public interface MemberRepository extends JpaRepository<MemberEntity, Integer> {  // <entity, id 타입>
 
     @Query("select m.id from MemberEntity m where m.id = :id")    // JPA
-    public MemberEntity findById(@Param("id") String id);
+    MemberEntity findById(@Param("id") String id);
 
     @Query("select m from MemberEntity m where m.id = :id")   // JPA
-    public MemberDetailsDto findAllBy(@Param("id") String id);
+    MemberDetailsDto findAllBy(@Param("id") String id);
+
+    @Query("select m.id from MemberEntity m where m.email = :email")
+    List<MemberEntity> findByEmail(@Param("email") String email);
 
     boolean existsById(@Param("id") String id);
 
