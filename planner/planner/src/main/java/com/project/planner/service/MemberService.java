@@ -4,18 +4,16 @@ import com.project.planner.dto.FindDto;
 import com.project.planner.dto.LoginDto;
 import com.project.planner.dto.MemberDetailsDto;
 import com.project.planner.dto.SignUpDto;
+import com.project.planner.entity.FriendEntity;
 import com.project.planner.entity.MemberEntity;
 import com.project.planner.repository.MemberRepository;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.mail.SimpleMailMessage;
 import org.springframework.mail.javamail.JavaMailSender;
-import org.springframework.mail.javamail.MimeMessageHelper;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
-import javax.mail.MessagingException;
-import javax.mail.internet.MimeMessage;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
@@ -112,4 +110,10 @@ public class MemberService {
 
         mailSender.send(mailMessage);
     }
+
+    public List<FriendEntity> friendsFind(FindDto findDto) {
+
+        return memberRepository.findFriendsByMemberId(findDto.getId());
+    }
+
 }

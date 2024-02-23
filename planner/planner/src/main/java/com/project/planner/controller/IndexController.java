@@ -11,7 +11,8 @@ public class IndexController {
     @GetMapping("/")
     public String index() {
 
-        String id = SecurityContextHolder.getContext().getAuthentication().getName();
+        // 현재 인증된 사용자의 아이디를 얻어오는 코드
+//        String id = SecurityContextHolder.getContext().getAuthentication().getName();
 
         return "index";
     }

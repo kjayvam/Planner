@@ -1,6 +1,6 @@
 package com.project.planner.entity;
 
-import lombok.Data;
+import lombok.Getter;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -8,7 +8,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 
 @Entity // JPA
-@Data   // Lombok
+@Getter   // Lombok
 public class PlanItemEntity {
 
     @Id // JPA

@@ -4,15 +4,19 @@ import com.project.planner.dto.FindDto;
 import com.project.planner.dto.LoginDto;
 import com.project.planner.dto.MemberDetailsDto;
 import com.project.planner.dto.SignUpDto;
+import com.project.planner.entity.FriendEntity;
 import com.project.planner.service.MemberService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.web.authentication.logout.SecurityContextLogoutHandler;
 import org.springframework.stereotype.Controller;
+import org.springframework.stereotype.Repository;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
+import javax.persistence.GeneratedValue;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
@@ -69,7 +73,7 @@ public class MemberController {
     public String logout(HttpServletRequest request, HttpServletResponse response) throws Exception {
 
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-        if(authentication != null) {
+        if (authentication != null) {
             new SecurityContextLogoutHandler().logout(request, response, authentication);
         }
 
@@ -94,4 +98,12 @@ public class MemberController {
         return "redirect:/";
     }
 
+    @PostMapping("/#friends")
+    public String friendsFind(@ModelAttribute FindDto findDto, Model model) {
+
+        List<FriendEntity> list = memberService.friendsFind(findDto);
+        model.addAttribute("list", list);
+
+        return "./#friends";
+    }
 }
