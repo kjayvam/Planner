@@ -1,12 +1,14 @@
 package com.project.planner.repository;
 
+import com.project.planner.dto.FriendDto;
 import com.project.planner.dto.MemberDetailsDto;
-import com.project.planner.entity.FriendEntity;
 import com.project.planner.entity.MemberEntity;
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
@@ -14,19 +16,17 @@ import java.util.List;
 public interface MemberRepository extends JpaRepository<MemberEntity, Integer> {  // <entity, id 타입>
 
     @Query("select m.id from MemberEntity m where m.id = :id")
-        // JPA
-    MemberEntity findById(@Param("id") String id);
+    MemberEntity findById(@Param("id") String id);  // id로 id찾기
 
     @Query("select m from MemberEntity m where m.id = :id")
-    MemberDetailsDto findAllBy(@Param("id") String id);
+    MemberDetailsDto findAllBy(@Param("id") String id); // id로 맴버 찾기
 
     @Query("select m.id from MemberEntity m where m.email = :email")
-    List<MemberEntity> findByEmail(@Param("email") String email);
+    List<MemberEntity> findByEmail(@Param("email") String email);   // email로 id찾기
 
-    boolean existsById(@Param("id") String id);
+    boolean existsById(@Param("id") String id); // id 존재여부 확인(id체크)
 
-    MemberEntity findByIdAndEmail(String id, String email);
+    MemberEntity findByIdAndEmail(String id, String email); // id, email로 맴버 찾기(pw찾기)
 
-    @Query("SELECT f FROM FriendEntity f JOIN f.user_no u JOIN f.friend_no n WHERE u.id = :id AND n.id = :id")
-    List<FriendEntity> findFriendsByMemberId(@Param("id") String id);
 }
+

@@ -1,19 +1,19 @@
 package com.project.planner.service;
 
-import com.project.planner.dto.FindDto;
-import com.project.planner.dto.LoginDto;
-import com.project.planner.dto.MemberDetailsDto;
-import com.project.planner.dto.SignUpDto;
+import com.project.planner.dto.*;
 import com.project.planner.entity.FriendEntity;
 import com.project.planner.entity.MemberEntity;
+import com.project.planner.repository.FriendRepository;
 import com.project.planner.repository.MemberRepository;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.mail.SimpleMailMessage;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.stereotype.Repository;
 import org.springframework.stereotype.Service;
 
+import javax.servlet.http.HttpSession;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
@@ -23,6 +23,8 @@ public class MemberService {
 
     @Autowired  // SpringBoot
     private MemberRepository memberRepository;
+    @Autowired  // SpringBoot
+    private FriendRepository friendRepository;
     @Autowired
     private BCryptPasswordEncoder passwordEncoder;
     @Autowired
@@ -111,9 +113,23 @@ public class MemberService {
         mailSender.send(mailMessage);
     }
 
-    public List<FriendEntity> friendsFind(FindDto findDto) {
+    public List<FriendDto> friendsList(FindDto findDto, String status) {
 
-        return memberRepository.findFriendsByMemberId(findDto.getId());
+        return friendRepository.findFriendsByMemberId(findDto.getId(), status);
+    }
+
+    public void requestFriend(String myId, String friendId) {
+
+        MemberEntity myMember = memberRepository.findById(myId);
+        MemberEntity friendMember = memberRepository.findById(friendId);
+
+        FriendEntity friendRequest = new FriendEntity();
+
+        friendRequest.setUser_no(myMember);
+        friendRequest.setFriend_no(friendMember);
+        friendRequest.setStatus("requested");
+
+        friendRepository.save(friendRequest);
     }
 
 }

@@ -1,13 +1,13 @@
 package com.project.planner.entity;
 
 import lombok.AllArgsConstructor;
-import lombok.Getter;
+import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
 
 @Entity // JPA
-@Getter   // Lombok
+@Data   // Lombok
 @NoArgsConstructor  // Lombok
 @AllArgsConstructor // Lombok
 public class FriendEntity {
@@ -22,5 +22,7 @@ public class FriendEntity {
     @ManyToOne
     @JoinColumn(name="friend_no")
     private MemberEntity friend_no;
+
+    private String status;
 
 }

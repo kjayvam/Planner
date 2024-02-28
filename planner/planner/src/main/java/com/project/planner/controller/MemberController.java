@@ -1,22 +1,15 @@
 package com.project.planner.controller;
 
-import com.project.planner.dto.FindDto;
-import com.project.planner.dto.LoginDto;
-import com.project.planner.dto.MemberDetailsDto;
-import com.project.planner.dto.SignUpDto;
-import com.project.planner.entity.FriendEntity;
+import com.project.planner.dto.*;
 import com.project.planner.service.MemberService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.web.authentication.logout.SecurityContextLogoutHandler;
 import org.springframework.stereotype.Controller;
-import org.springframework.stereotype.Repository;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
-import javax.persistence.GeneratedValue;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
@@ -99,11 +92,27 @@ public class MemberController {
     }
 
     @PostMapping("/#friends")
-    public String friendsFind(@ModelAttribute FindDto findDto, Model model) {
+    public String friendsList(@ModelAttribute FindDto findDto, Model model, String status) {
 
-        List<FriendEntity> list = memberService.friendsFind(findDto);
+
+        List<FriendDto> list = memberService.friendsList(findDto, status);
+
         model.addAttribute("list", list);
 
         return "./#friends";
     }
+
+
+    @PostMapping("/#addFriend")
+    public String requestFriend(HttpSession session, String friend_id) {
+
+        if (memberService.idCheck(friend_id)) {
+            memberService.requestFriend(session.getId(), friend_id);
+        } else {
+            System.out.println("에러");
+        }
+
+        return "./#friends";
+    }
+
 }
