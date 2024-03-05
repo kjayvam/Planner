@@ -21,7 +21,7 @@ public class MemberService {
 
     @Autowired  // SpringBoot
     private MemberRepository memberRepository;
-    @Autowired  // SpringBoot
+    @Autowired
     private FriendRepository friendRepository;
     @Autowired
     private BCryptPasswordEncoder passwordEncoder;
@@ -100,6 +100,20 @@ public class MemberService {
         memberRepository.save(memberEntity);
     }
 
+    public void changePassword(String id, String newPw) {
+
+        String encodedPw = passwordEncoder.encode(newPw);
+        memberRepository.updatePassword(id, encodedPw);
+    }
+
+    public void deleteMember(String memberId) {
+
+        if (idCheck(memberId)) {
+            // 사용자 삭제
+            memberRepository.deleteByMemberId(memberId);
+        }
+    }
+
     // (스프링 비밀번호찾기 - 단순 이메일 전송)[https://velog.io/@jinvicky/%EC%8A%A4%ED%94%84%EB%A7%81-%EB%B9%84%EB%B2%88%EC%B0%BE%EA%B8%B0-%EB%8B%A8%EC%88%9C-%EC%9D%B4%EB%A9%94%EC%9D%BC-%EC%A0%84%EC%86%A1]
     public void sendEmail(String email, String tempPassword) {
 
@@ -130,11 +144,4 @@ public class MemberService {
         friendRepository.save(friendRequest);
     }
 
-    public void deleteMember(String memberId) {
-
-        if (idCheck(memberId)) {
-            // 사용자 삭제
-            memberRepository.deleteByMemberId(memberId);
-        }
-    }
 }

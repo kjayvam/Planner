@@ -8,6 +8,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.User;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.web.authentication.logout.SecurityContextLogoutHandler;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -94,8 +95,35 @@ public class MemberController {
         return "redirect:/";
     }
 
+    @PutMapping("/#changePasswd")
+    public String changePasswd(Authentication authentication, ChangePasswdDto changePasswd) {
+
+        // 인증된 사용자 id 가져오기
+        String id = authentication.getName();
+
+        memberService.changePassword(id, changePasswd.getNewPassword());
+
+        return "redirect:/";
+    }
+/*
+
+    @PostMapping("/#viewProfile")
+    public String viewProfile() {
+    }
+
+    @PutMapping("/#account")    // 계정 수정
+    public String updateMember(@AuthenticationPrincipal UserDetails user, @RequestParam String password, Model model) {
+
+        User updatedUser = userDetailsService.updatePassword(user, password);
+
+        model.addAttribute("message", "Password updated!");
+
+        return "redirect:/";
+    }
+*/
+
     @DeleteMapping("/#member/{memberId}")
-    public ResponseEntity<String> deleteMember(@PathVariable String memberId, Authentication authentication) {
+    public String deleteMember(@PathVariable String memberId, Authentication authentication) {
 
         // 인증된 사용자 가져오기(세션)
         User userDetail = (User) authentication.getPrincipal();
@@ -104,9 +132,9 @@ public class MemberController {
         if (userDetail.getUsername().equals(memberId)) {
 
             memberService.deleteMember(memberId);
-            return ResponseEntity.ok("User deleted successfully");
+            return "redirect:/";
         }
-        return ResponseEntity.status(HttpStatus.FORBIDDEN).build();
+        return "#";
     }
 
     @PostMapping("/#friends")
