@@ -1,0 +1,35 @@
+html, body {
+    height: 100%;
+}
+
+/* input date, time 전체 클릭 */
+.date-wrap {
+    width: 300px;
+    margin: 0 auto;
+}
+
+input {
+    margin: 0 auto;
+    width: 100%;
+    position: relative;
+}
+
+::-webkit-calendar-picker-indicator {
+    position: absolute;
+    right: -7px;
+    top: 7px;
+    transform: translateX(-10px);
+    padding-left: 3000px;
+    height: 100%;
+}
+
+/* 일요일 날짜 빨간색 */
+.fc-day a {
+    color: black;
+    text-decoration: none;
+}
+
+.fc-day-sun a {
+    color: red;
+    text-decoration: none;
+}
