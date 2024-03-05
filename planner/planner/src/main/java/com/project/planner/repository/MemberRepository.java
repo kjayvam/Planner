@@ -21,6 +21,9 @@ public interface MemberRepository extends JpaRepository<MemberEntity, Integer> {
     @Query("select m from MemberEntity m where m.id = :id")
     MemberDetailsDto findAllBy(@Param("id") String id); // id로 맴버 찾기
 
+    @Query("select m from MemberEntity m where m.id = :id")
+    MemberEntity findAllById(@Param("id") String id);   // id로 맴버 찾기
+
     @Query("select m.id from MemberEntity m where m.email = :email")
     List<MemberEntity> findByEmail(@Param("email") String email);   // email로 id찾기
 

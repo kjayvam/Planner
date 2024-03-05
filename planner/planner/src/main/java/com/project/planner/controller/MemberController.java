@@ -113,18 +113,14 @@ public class MemberController {
 
         return "./#account";
     }
-/*
 
-    @PutMapping("/#account")    // 계정 수정
-    public String updateMember(@AuthenticationPrincipal UserDetails user, @RequestParam String password, Model model) {
+    @PutMapping("/#account/{id}")
+    public String updateMember(@PathVariable String id, @ModelAttribute SignUpDto signUpDto) {
 
-        User updatedUser = userDetailsService.updatePassword(user, password);
-
-        model.addAttribute("message", "Password updated!");
+        memberService.updateMember(id, signUpDto);
 
         return "redirect:/";
     }
-*/
 
     @DeleteMapping("/#member/{memberId}")
     public String deleteMember(@PathVariable String memberId, Authentication authentication) {
