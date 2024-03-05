@@ -10,10 +10,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.mail.SimpleMailMessage;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
-import org.springframework.stereotype.Repository;
 import org.springframework.stereotype.Service;
 
-import javax.servlet.http.HttpSession;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
@@ -132,4 +130,11 @@ public class MemberService {
         friendRepository.save(friendRequest);
     }
 
+    public void deleteMember(String memberId) {
+
+        if (idCheck(memberId)) {
+            // 사용자 삭제
+            memberRepository.deleteByMemberId(memberId);
+        }
+    }
 }

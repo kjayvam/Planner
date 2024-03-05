@@ -28,5 +28,8 @@ public interface MemberRepository extends JpaRepository<MemberEntity, Integer> {
 
     MemberEntity findByIdAndEmail(String id, String email); // id, email로 맴버 찾기(pw찾기)
 
+    @Query("delete from MemberEntity m where m.id = :id")
+    void deleteByMemberId(@Param("id") String id);
+
 }
 

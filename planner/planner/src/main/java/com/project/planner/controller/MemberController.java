@@ -3,8 +3,11 @@ package com.project.planner.controller;
 import com.project.planner.dto.*;
 import com.project.planner.service.MemberService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.userdetails.User;
 import org.springframework.security.web.authentication.logout.SecurityContextLogoutHandler;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -89,6 +92,21 @@ public class MemberController {
         memberService.pwFind(findDto);
 
         return "redirect:/";
+    }
+
+    @DeleteMapping("/#member/{memberId}")
+    public ResponseEntity<String> deleteMember(@PathVariable String memberId, Authentication authentication) {
+
+        // 인증된 사용자 가져오기(세션)
+        User userDetail = (User) authentication.getPrincipal();
+
+        // 인증된 사용자와 삭제 대상 사용자가 같은지 확인
+        if (userDetail.getUsername().equals(memberId)) {
+
+            memberService.deleteMember(memberId);
+            return ResponseEntity.ok("User deleted successfully");
+        }
+        return ResponseEntity.status(HttpStatus.FORBIDDEN).build();
     }
 
     @PostMapping("/#friends")
