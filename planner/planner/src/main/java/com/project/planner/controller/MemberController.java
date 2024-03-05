@@ -53,7 +53,7 @@ public class MemberController {
             return "redirect:/";
         }
         model.addAttribute("msg", "회원가입 실패");
-        return "signup";
+        return "./#signup";
     }
 
     @PostMapping("/#login")
@@ -105,11 +105,15 @@ public class MemberController {
 
         return "redirect:/";
     }
-/*
 
     @PostMapping("/#viewProfile")
-    public String viewProfile() {
+    public String viewProfile(Authentication authentication, Model model) {
+
+        model.addAttribute("account", authentication);
+
+        return "./#account";
     }
+/*
 
     @PutMapping("/#account")    // 계정 수정
     public String updateMember(@AuthenticationPrincipal UserDetails user, @RequestParam String password, Model model) {
@@ -134,7 +138,7 @@ public class MemberController {
             memberService.deleteMember(memberId);
             return "redirect:/";
         }
-        return "#";
+        return "./#";
     }
 
     @PostMapping("/#friends")
