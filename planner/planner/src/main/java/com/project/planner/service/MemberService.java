@@ -1,9 +1,10 @@
 package com.project.planner.service;
 
-import com.project.planner.dto.*;
-import com.project.planner.entity.FriendEntity;
+import com.project.planner.dto.FindDto;
+import com.project.planner.dto.LoginDto;
+import com.project.planner.dto.MemberDetailsDto;
+import com.project.planner.dto.SignUpDto;
 import com.project.planner.entity.MemberEntity;
-import com.project.planner.repository.FriendRepository;
 import com.project.planner.repository.MemberRepository;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -23,8 +24,6 @@ public class MemberService {
 
     @Autowired  // SpringBoot
     private MemberRepository memberRepository;
-    @Autowired
-    private FriendRepository friendRepository;
     @Autowired
     private BCryptPasswordEncoder passwordEncoder;
     @Autowired
@@ -137,8 +136,8 @@ public class MemberService {
             memberRepository.deleteByMemberId(memberId);
         }
     }
-    // (스프링 비밀번호찾기 - 단순 이메일 전송)[https://velog.io/@jinvicky/%EC%8A%A4%ED%94%84%EB%A7%81-%EB%B9%84%EB%B2%88%EC%B0%BE%EA%B8%B0-%EB%8B%A8%EC%88%9C-%EC%9D%B4%EB%A9%94%EC%9D%BC-%EC%A0%84%EC%86%A1]
 
+    // (스프링 비밀번호찾기 - 단순 이메일 전송)[https://velog.io/@jinvicky/%EC%8A%A4%ED%94%84%EB%A7%81-%EB%B9%84%EB%B2%88%EC%B0%BE%EA%B8%B0-%EB%8B%A8%EC%88%9C-%EC%9D%B4%EB%A9%94%EC%9D%BC-%EC%A0%84%EC%86%A1]
     public void sendEmail(String email, String tempPassword) {
 
         SimpleMailMessage mailMessage = new SimpleMailMessage();
@@ -147,24 +146,5 @@ public class MemberService {
         mailMessage.setText(msg + tempPassword);
 
         mailSender.send(mailMessage);
-    }
-
-    public List<FriendDto> friendsList(FindDto findDto, String status) {
-
-        return friendRepository.findFriendsByMemberId(findDto.getId(), status);
-    }
-
-    public void requestFriend(String myId, String friendId) {
-
-        MemberEntity myMember = memberRepository.findById(myId);
-        MemberEntity friendMember = memberRepository.findById(friendId);
-
-        FriendEntity friendRequest = new FriendEntity();
-
-        friendRequest.setUser_no(myMember);
-        friendRequest.setFriend_no(friendMember);
-        friendRequest.setStatus("requested");
-
-        friendRepository.save(friendRequest);
     }
 }

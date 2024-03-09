@@ -3,12 +3,9 @@ package com.project.planner.controller;
 import com.project.planner.dto.*;
 import com.project.planner.service.MemberService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.User;
-import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.web.authentication.logout.SecurityContextLogoutHandler;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -134,31 +131,7 @@ public class MemberController {
             memberService.deleteMember(memberId);
             return "redirect:/";
         }
-        return "./#";
-    }
-
-    @PostMapping("/#friends")
-    public String friendsList(@ModelAttribute FindDto findDto, Model model, String status) {
-
-
-        List<FriendDto> list = memberService.friendsList(findDto, status);
-
-        model.addAttribute("list", list);
-
-        return "./#friends";
-    }
-
-
-    @PostMapping("/#addFriend")
-    public String requestFriend(HttpSession session, String friend_id) {
-
-        if (memberService.idCheck(friend_id)) {
-            memberService.requestFriend(session.getId(), friend_id);
-        } else {
-            System.out.println("에러");
-        }
-
-        return "./#friends";
+        return "redirect:/";
     }
 
 }

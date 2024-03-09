@@ -33,7 +33,7 @@ public interface MemberRepository extends JpaRepository<MemberEntity, Integer> {
 
     @Modifying
     @Query("update MemberEntity m set m.pw = :password where m.id = :id")
-    void updatePassword(@Param("id") String id, @Param("password") String pw);
+    void updatePassword(@Param("id") String id, @Param("password") String pw);  // 비밀번호 변경
 
     @Query("delete from MemberEntity m where m.id = :id")
     void deleteByMemberId(@Param("id") String id);  // 계정 삭제
