@@ -6,21 +6,21 @@ import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
 
-@Entity // JPA
-@Data   // Lombok
-@NoArgsConstructor  // Lombok
-@AllArgsConstructor // Lombok
+@Entity
+@Data
+@NoArgsConstructor
+@AllArgsConstructor
 public class FriendEntity {
 
-    @Id // JPA
-    @GeneratedValue(strategy = GenerationType.IDENTITY) // JPA
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer no;
 
     @ManyToOne
-    @JoinColumn(name="user_no")
+    @JoinColumn(name = "user_no")
     private MemberEntity user_no;
     @ManyToOne
-    @JoinColumn(name="friend_no")
+    @JoinColumn(name = "friend_no")
     private MemberEntity friend_no;
 
     private String status;

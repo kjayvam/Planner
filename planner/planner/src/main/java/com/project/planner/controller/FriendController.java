@@ -2,14 +2,12 @@ package com.project.planner.controller;
 
 import com.project.planner.dto.FindDto;
 import com.project.planner.dto.FriendDto;
-import com.project.planner.service.Friendservice;
+import com.project.planner.service.FriendService;
 import com.project.planner.service.MemberService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpSession;
 import java.util.List;
@@ -19,7 +17,7 @@ import java.util.List;
 public class FriendController {
 
     @Autowired
-    Friendservice friendService;
+    FriendService friendService;
     @Autowired
     MemberService memberService;
 
@@ -34,7 +32,7 @@ public class FriendController {
     }
 
     // 친구 요청하기
-    @PostMapping("/#addFriend")
+    @PostMapping("/#requestFriend")
     public String requestFriend(HttpSession session, String friend_id) {
 
         if (memberService.idCheck(friend_id)) {
@@ -46,18 +44,29 @@ public class FriendController {
         return "./#friends";
     }
 
+    @PutMapping("/#addFriend")
     // 친구 요청을 수락하기
-    public String approved() {
+    public String approved(HttpSession session, String friend_id) {
+
+        friendService.approved(session.getId(), friend_id);
+
         return "./#friends";
     }
 
+    @PutMapping("/#deleteFriend")
     // 친구 요청을 거절하기
-    public String refusal() {
+    public String refusal(HttpSession session, String friend_id) {
+
+        friendService.refusal(session.getId(), friend_id);
+
         return "./#friends";
     }
-
+    @DeleteMapping("/#deleteFriend")
     // 친구 삭제
-    public String remove() {
+    public String remove(HttpSession session, String friend_id) {
+
+        friendService.remove(session.getId(), friend_id);
+
         return "./#friends";
     }
 /*

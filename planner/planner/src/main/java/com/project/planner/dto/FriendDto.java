@@ -5,8 +5,8 @@ import lombok.Data;
 @Data
 public class FriendDto {
 
-    private String mId;     // 나의 id
-    private String m2Id;    // 친구의 id
+    private String myId;    // 나의 id
+    private String friendId;    // 친구의 id
     private FriendStatus status;
 
     public enum FriendStatus {

@@ -14,7 +14,7 @@ import java.util.List;
 
 @Service
 @Transactional
-public class Friendservice {
+public class FriendService {
 
     @Autowired
     private MemberRepository memberRepository;
@@ -36,8 +36,27 @@ public class Friendservice {
 
         friendRequest.setUser_no(myMember);
         friendRequest.setFriend_no(friendMember);
-        friendRequest.setStatus("requested");
+        friendRequest.setStatus("request");
 
         friendRepository.save(friendRequest);
+    }
+
+    public void approved(String myId, String friendId) {
+
+        // 친구 요청 상태를 수락으로 변경하는 쿼리 실행
+        friendRepository.updateFriendStatus(myId, friendId);
+
+    }
+
+    public void refusal(String myId, String friendId) {
+
+        // 친구 요청 삭제
+        friendRepository.refusalFriend(myId, friendId);
+    }
+
+    public void remove(String myId, String friendId) {
+
+        // 친구를 삭제
+        friendRepository.deleteFriend(myId, friendId);
     }
 }
