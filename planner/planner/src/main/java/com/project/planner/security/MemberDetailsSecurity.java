@@ -1,4 +1,4 @@
-package com.project.planner.Security;
+package com.project.planner.security;
 
 import com.project.planner.dto.MemberDetailsDto;
 import com.project.planner.entity.MemberEntity;
