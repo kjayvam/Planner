@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>이미지 레이아웃</title>
+    <!--부트스트랩 링크-->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-4bw+/aepP/YC94hEpVNVgiZdgIC5+VKNBQNGCHeKRQN+PtmoHDEXuppvnDJzQIu9" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.bundle.min.js" integrity="sha384-HwwvtgBNo3bZJJLYd8oVXjrBZt8cqVSpeBNS5n7C8IVInixGAoxmnlMuBnhbgrkm" crossorigin="anonymous"></script>
+    <link href="/static/css/setting.css" rel="stylesheet" type="text/css"/>
+</head>
+<body class="text-center">
+<div class="container h-100">
+    <div class="row d-flex align-items-center h-100 justify-content-center">
+
+
+        <!--sm일 때, 그림 사라짐-->
+        <div class="col-3 d-none d-sm-flex" th:fragment="image-content">
+            <img src="/static/images/pixel-cells-3674112_1920.png" alt="이미지" width="100%" height="100%">
+        </div>
+
+
+        <div class="col-6"><!--로그인 화면 form--></div>
+    </div>
+</div>
+</body>
+</html>

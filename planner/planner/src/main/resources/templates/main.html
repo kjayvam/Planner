@@ -1,0 +1,546 @@
+<!DOCTYPE html>
+<html lang="UTF-8">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>learn-bootstrap</title>
+
+    <!-- reset -->
+    <!--<link href="reset.css" >-->
+
+    <!-- fullcalender.css -->
+    <link rel="stylesheet" href="/static/css/calendar.css" type="text/css">
+
+    <!-- fullcalender.js -->
+    <script src="/static/js/calender.js" ></script>
+
+    <!-- bootstrap5.2.3 -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" rel="stylesheet"
+          integrity="sha384-rbsA2VBKQhggwzxH7pPCaAqO46MgnOM80zW1RWuH61DGLwZJEdK2Kadq2F9CUG65" crossorigin="anonymous">
+
+    <!-- 아이콘쓸수있게해주는 cdn 링크 -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+
+    <!-- fullcalender api -->
+    <script src='https://cdn.jsdelivr.net/npm/fullcalendar@6.1.10/index.global.min.js'></script>
+    <script src='./index.global.js'></script>
+
+    <!-- 우편주소cdn -->
+    <script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
+
+    <!-- 우편주소 js -->
+    <script src="/static/js/postcode.js" ></script>
+
+    <script>
+        const checkboxes1 = document.getElementsByName('weekday');
+
+        const checkboxes2 = document.getElementsByName('weekend');
+
+        function clickWeek(){
+            const radioboxes = document.getElementsByName('btnradio');
+
+            radioboxes.forEach((radiobox) => {
+                radiobox.checked = false;
+            })
+        }
+
+        function selectRemove()  {
+            const checkboxes1
+                = document.getElementsByName('weekday');
+
+            const checkboxes2
+                = document.getElementsByName('weekend');
+
+            checkboxes1.forEach((checkbox) => {
+                checkbox.checked = false;
+            })
+
+            checkboxes2.forEach((checkbox) => {
+                checkbox.checked = false;
+            })
+        }
+        function selectAll(selectAll)  {
+            const checkboxes1
+                = document.getElementsByName('weekday');
+
+            const checkboxes2
+                = document.getElementsByName('weekend');
+
+            checkboxes1.forEach((checkbox) => {
+                checkbox.checked = true;
+            })
+
+            checkboxes2.forEach((checkbox) => {
+                checkbox.checked = true;
+            })
+        }
+
+        function selectWeekday(select)  {
+            const checkboxes1
+                = document.getElementsByName('weekday');
+
+            const checkboxes2
+                = document.getElementsByName('weekend');
+
+            checkboxes1.forEach((checkbox) => {
+
+                checkbox.checked = true;
+            })
+
+            checkboxes2.forEach((checkbox) => {
+                checkbox.checked = false;
+            })
+
+        }
+
+        function selectWeekend(select)  {
+            const checkboxes1
+                = document.getElementsByName('weekday');
+
+            const checkboxes2
+                = document.getElementsByName('weekend');
+
+            checkboxes1.forEach((checkbox) => {
+
+                checkbox.checked = false;
+            })
+
+            checkboxes2.forEach((checkbox) => {
+                checkbox.checked = true;
+            })
+
+        }
+
+
+
+    </script>
+
+
+</head>
+<body class="text-center">
+<!-- 네비바 -->
+<nav class="navbar navbar-light bg-light mb-2">
+    <div class="container-fluid">
+        <a class="navbar-brand">Navbar</a>
+        <form class="d-flex">
+            <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
+            <!-- 아이콘 -->
+            <i class="bi bi-person-circle align-self-center"></i>
+        </form>
+    </div>
+</nav>
+<div class="row d-flex align-items-center mb-2">
+    <div class="w-25">
+        <div class="btn-group" role="group" aria-label="Basic outlined example">
+            <button type="button" class="btn btn-outline-primary" data-bs-toggle="modal" data-bs-target="#plan">플랜 만들기
+            </button>
+            <button type="button" class="btn btn-outline-primary" data-bs-toggle="modal" data-bs-target="#schedule">할일
+                만들기
+            </button>
+        </div>
+    </div>
+    <div class="w-50 text-start">
+        <i class="bi bi-calendar"></i>
+        날짜
+        <i class="bi bi-chevron-left"></i>
+        <i class="bi bi-chevron-right"></i>
+    </div>
+    <div class="w-25">
+        <div class="btn-group" role="group" aria-label="Basic outlined example">
+            <button type="button" class="btn btn-outline-primary">월간 보기</button>
+            <button type="button" class="btn btn-outline-primary">주간 보기</button>
+        </div>
+    </div>
+</div>
+
+<div class="row d-flex h-100">
+    <div class="w-25">
+        <div class="mb-2" data-bs-toggle="modal" data-bs-target="#scheduleAll">
+            할 일 한눈에 보기
+            <i class="bi bi-chevron-right"></i>
+        </div>
+        <div>
+            <div>
+                내 플랜
+                <i class="bi bi-chevron-up"></i>
+                <i class="bi bi-chevron-down"></i>
+                <i class="bi bi-plus-lg" data-bs-toggle="modal" data-bs-target="#planGroup1"></i>
+            </div>
+            <div>
+                <div class="form-check">
+                    <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault">
+                    <label class="form-check-label" for="flexCheckDefault">
+                        Default checkbox
+                    </label>
+                </div>
+                <div class="form-check">
+                    <input class="form-check-input" type="checkbox" value="" id="flexCheckChecked" checked>
+                    <label class="form-check-label" for="flexCheckChecked">
+                        Checked checkbox
+                    </label>
+                </div>
+            </div>
+        </div>
+        <div>
+            <div>
+                팀 플랜
+                <i class="bi bi-chevron-up"></i>
+                <i class="bi bi-chevron-down"></i>
+                <i class="bi bi-plus-lg"></i>
+            </div>
+            <div>
+                <div class="form-check">
+                    <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault">
+                    <label class="form-check-label" for="flexCheckDefault">
+                        Default checkbox
+                    </label>
+                </div>
+                <div class="form-check">
+                    <input class="form-check-input" type="checkbox" value="" id="flexCheckChecked" checked>
+                    <label class="form-check-label" for="flexCheckChecked">
+                        Checked checkbox
+                    </label>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="w-50">
+        <div id='calendar'></div>
+    </div>
+    <div class="w-25">
+        <div>
+            날짜
+        </div>
+        <div>
+            일정정보
+        </div>
+    </div>
+</div>
+
+<!-- Modal plan 스태틱설정(밖화면눌러도안나가짐)-->
+<div class="modal fade " id="plan" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
+     aria-labelledby="planLabel" aria-hidden="true">
+    <!-- 모달클래스로 라지크기, 중앙정렬 -->
+    <div class="modal-dialog modal-dialog-centered modal-lg">
+        <div class="modal-content">
+            <div class="modal-header container">
+                <div class="col-1">
+                    <input type="color" class="form-control form-control-color" id="planColor" value="#000000" title="">
+                </div>
+                <div class="col-8">
+                    <input type="text" class="form-control ms-2" id="palnTitle" placeholder="제목입력">
+                </div>
+                <div class="col row">
+                    <div class="col text-end">
+                        <label for="share" class="col-form-label">
+                            <i class="bi bi-share"></i>
+                        </label>
+                    </div>
+                    <div class="col d-flex align-items-center">
+                         <span class="">공유</span>
+                    </div>
+                </div>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <!-- 내용 -->
+            <div class="modal-body text-start">
+                <!-- 날짜 -->
+                <div class="container mb-2">
+                    <div class="row d-flex align-items-center">
+                        <div class="col-1">
+                            <label for="planDate1" class=" col-form-label">
+                                <i class="bi bi-clock"></i>
+                            </label>
+                        </div>
+                        <div class="col">
+                            <input type="date" class="form-control  " id="planDate1"/>
+                        </div>
+                        <div class="col">
+                            <input type="time" class="form-control  " id="planTime1"/>
+                        </div>
+                        ~
+                        <div class="col">
+                            <input type="date" class="form-control  " id="planDate2"/>
+                        </div>
+                        <div class="col">
+                            <input type="time" class="form-control  " id="planTime2"/>
+                        </div>
+                    </div>
+                </div>
+                <!-- 그룹 -->
+                <div class="container mb-2">
+                    <div class="row">
+                        <div class="col-1">
+                            <label for="planSelect" class=" col-form-label">
+                                <i class="bi bi-calendar"></i>
+                            </label>
+                        </div>
+                        <div class="col">
+                            <select class="form-select w-25" aria-label="planSelect" id="planSelect">
+                                <option selected>해당플랜선택</option>
+                                <option value="1">One</option>
+                                <option value="2">Two</option>
+                                <option value="3">Three</option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+                <!-- 지도 -->
+                <div class="container mb-2">
+                    <div class="row">
+                        <div class="col-1">
+                            <label for="palnMap" class=" col-form-label">
+                                <i class="bi bi-geo-alt"></i>
+                            </label>
+                        </div>
+                        <div class="col-5">
+                            <input type="text" class="form-control" id="palnMap" placeholder="장소입력하기">
+                            <span id="guide" style="color:#999;display:none"></span>
+                        </div>
+                        <div class="col-3">
+                            <input type="button" class="btn btn-outline-primary" onclick="sample4_execDaumPostcode()" value="우편번호 찾기">
+                        </div>
+                    </div>
+                </div>
+                <!-- 예고알람 -->
+                <div class="container mb-2">
+                    <div class="row">
+                        <div class="col-1">
+                            <label for="palnAlram" class="col-form-label">
+                                <i class="bi bi-bell"></i>
+                            </label>
+                        </div>
+                        <div class="col">
+                            <select class="form-select w-25" aria-label="palnAlram" id="palnAlram">
+                                <option selected>10분전</option>
+                                <option value="1">One</option>
+                                <option value="2">Two</option>
+                                <option value="3">Three</option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+                <!-- 내용 -->
+                <div class="container mb-2">
+                    <div class="row">
+                        <div class="col-1">
+                            <label for="palnContents" class=" col-form-label">
+                                <i class="bi bi-body-text"></i>
+                            </label>
+                        </div>
+                        <div class="col">
+                            <textarea class="form-control" id="palnContents" rows="3" placeholder="내용입력..."></textarea>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+                <button type="button" class="btn btn-primary">Confirm</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Modal schedule 스태틱설정(밖화면눌러도안나가짐)-->
+<div class="modal fade " id="schedule" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
+     aria-labelledby="scheduleLabel" aria-hidden="true">
+    <!-- 모달클래스로 라지크기, 중앙정렬 -->
+    <div class="modal-dialog modal-dialog-centered modal-lg">
+        <div class="modal-content">
+            <div class="modal-header container row">
+                <div class="col-1">
+                    <input type="color" class="form-control form-control-color" id="scheduleColor" value="#000000" title="">
+                </div>
+                <div class="col">
+                    <input type="text" class="form-control w-75 ms-2" id="scheduleTitle" placeholder="제목입력">
+                </div>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <!-- 내용 -->
+            <div class="modal-body text-start">
+                <!-- 날짜 -->
+                <div class="container mb-2">
+                    <div class="row d-flex align-items-center">
+                        <div class="col-1">
+                            <label for="planDate1" class=" col-form-label">
+                                <i class="bi bi-clock"></i>
+                            </label>
+                        </div>
+                        <div class="col-3">
+                            <input type="date" class="form-control  " id="scheduleDate1"/>
+                        </div>
+                        <div class="col-3">
+                            <input type="time" class="form-control  " id="scheduleTime1"/>
+                        </div>
+                    </div>
+                </div>
+                <!-- 반복알람 -->
+                <div class="container mb-2">
+                    <div class="row">
+                        <div class="col-1">
+                            <label for="repeat" class="-1 col-form-label">
+                                <i class="bi bi-arrow-repeat"></i>
+                            </label>
+                        </div>
+                        <div class="col">
+                            <div class="btn-toolbar" role="toolbar" aria-label="Toolbar with button groups">
+                                <div class="btn-group me-2" role="group" aria-label="First group">
+                                    <div class="btn-group" role="group" aria-label="Basic checkbox toggle button group">
+                                        <input type="checkbox" class="btn-check" name="weekday" id="btncheck1" autocomplete="off" onclick="clickWeek()">
+                                        <label class="btn btn-outline-primary" for="btncheck1">월</label>
+
+                                        <input type="checkbox" class="btn-check" name="weekday" id="btncheck2" autocomplete="off" onclick="clickWeek()">
+                                        <label class="btn btn-outline-primary" for="btncheck2">화</label>
+
+                                        <input type="checkbox" class="btn-check" name="weekday" id="btncheck3" autocomplete="off" onclick="clickWeek()">
+                                        <label class="btn btn-outline-primary" for="btncheck3">수</label>
+
+                                        <input type="checkbox" class="btn-check" name="weekday" id="btncheck4" autocomplete="off" onclick="clickWeek()">
+                                        <label class="btn btn-outline-primary" for="btncheck4">목</label>
+
+                                        <input type="checkbox" class="btn-check" name="weekday" id="btncheck5" autocomplete="off" onclick="clickWeek()">
+                                        <label class="btn btn-outline-primary" for="btncheck5">금</label>
+
+                                        <input type="checkbox" class="btn-check" name="weekend" id="btncheck6" autocomplete="off" onclick="clickWeek()">
+                                        <label class="btn btn-outline-primary" for="btncheck6">토</label>
+
+                                        <input type="checkbox" class="btn-check" name="weekend" id="btncheck7" autocomplete="off" onclick="clickWeek()">
+                                        <label class="btn btn-outline-primary" for="btncheck7">일</label>
+                                    </div>
+                                </div>
+
+                                <div class="btn-group me-2" role="group" aria-label="Second group">
+                                    <div class="btn-group" role="group" aria-label="Basic checkbox toggle button group">
+                                        <input type="radio" class="btn-check" name="btnradio" id="btncheck11" autocomplete="off" onclick="selectWeekday(this)">
+                                        <label class="btn btn-outline-primary" for="btncheck11">평일</label>
+
+                                        <input type="radio" class="btn-check" name="btnradio" id="btncheck22" autocomplete="off" onclick="selectWeekend(this)">
+                                        <label class="btn btn-outline-primary" for="btncheck22">주말</label>
+
+                                        <input type="radio" class="btn-check" name="btnradio" id="btncheck33" autocomplete="off" onclick="selectAll(this)">
+                                        <label class="btn btn-outline-primary" for="btncheck33">매일</label>
+
+                                        <input type="radio" class="btn-check" name="btnradio" id="btncheck44" autocomplete="off" onclick="selectRemove()">
+                                        <label class="btn btn-outline-primary" for="btncheck44">반복안함</label>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- 예고알람 -->
+                <div class="container mb-2">
+                    <div class="row">
+                        <div class="col-1">
+                            <label for="scheduleAlram" class=" col-form-label">
+                                <i class="bi bi-bell"></i>
+                            </label>
+                        </div>
+                        <div class="col">
+                            <select class="form-select w-25" aria-label="scheduleAlram" id="scheduleAlram">
+                                <option selected>10분전</option>
+                                <option value="1">One</option>
+                                <option value="2">Two</option>
+                                <option value="3">Three</option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+                <!-- 내용 -->
+                <div class="container mb-2">
+                    <div class="row">
+                        <div class="col-1">
+                            <label for="scheduleContents" class=" col-form-label">
+                                <i class="bi bi-body-text"></i>
+                            </label>
+                        </div>
+                        <div class="col">
+                            <textarea class="form-control" id="scheduleContents" rows="3"
+                                      placeholder="내용입력..."></textarea>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+                <button type="button" class="btn btn-primary">Confirm</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Modal scheduleAll 스태틱설정(밖화면눌러도안나가짐)-->
+<div class="modal fade " id="scheduleAll" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
+     aria-labelledby="scheduleLabelAll" aria-hidden="true">
+    <!-- 모달클래스로 라지크기, 중앙정렬 -->
+    <div class="modal-dialog modal-dialog-centered modal-lg">
+        <div class="modal-content">
+            <div class="modal-header container">
+                <h1>할 일</h1>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <!-- 내용 -->
+            <div class="modal-body text-start row">
+                <div class="w-25 border-end">
+                    <button type="button" class="btn btn-outline-primary" data-bs-toggle="modal"
+                            data-bs-target="#schedule">할 일 만들기
+                    </button>
+                    <ul>
+                        <li>
+                            할 일
+                        </li>
+                        <li>
+                            완료한 일
+                        </li>
+                        <li>
+                            중요한 일
+                        </li>
+                    </ul>
+                </div>
+                <div class="w-75">
+                    <ul>
+                        <li>
+                            할일제목1
+                            <i class="bi bi-trash3"></i>
+                            <i class="bi bi-star"></i>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Modal planGroup1 -->
+<div class="modal fade " id="planGroup1" data-bs-keyboard="false" tabindex="-1"
+     aria-labelledby="planGroup1All" aria-hidden="true">
+    <!-- 모달클래스로 스몰크기, 중앙정렬 -->
+    <div class="modal-dialog modal-dialog-centered modal-sm">
+        <div class="modal-content">
+            <div class="modal-header container">
+                <i class="bi bi-calendar2-plus"></i>
+                <h5 class="ms-2 mt-2 fw-bold">플랜그룹이름</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body row">
+                <input type="color" class="form-control form-control-color ms-2" id="planGroup1Color" value="#000000"
+                       title="">
+                <input type="text" class="form-control w-75 ms-2" id="planGroup1Title" placeholder="제목입력">
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                <button type="button" class="btn btn-primary">Confirm</button>
+            </div>
+
+        </div>
+    </div>
+</div>
+
+<!-- bootstrap5.2.3 -->
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-kenU1KFdBIe4zVF0s0G1M5b4hcpxyD9F7jL+jjXkk+Q2h455rYXK/7HAuoJl+0I4"
+        crossorigin="anonymous"></script>
+
+</body>
+</html>
