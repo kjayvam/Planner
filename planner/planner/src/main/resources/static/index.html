@@ -1,4 +1,5 @@
-<html lang="en">
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
     <title>인덱스</title>
@@ -6,11 +7,13 @@
 <script>
 
     const EventListener = 'DOMContentLoaded';
+
     document.addEventListener(EventListener, onClickEvent);
 
     function onClickEvent() {
 /*
-        let calenderBtn = document.getElementsByName('moveCalenderBtn');
+
+        let calenderBtn = document.getElementById('moveCalenderBtn');
         calenderBtn.addEventListener('click', calenderMove);
 
         function calenderMove() {
@@ -31,7 +34,8 @@
 </script>
 <body>
 <div>
-    <button name="boardList">게시판 이동</button>
+<!--    <button id="moveCalenderBtn">캘린더 이동</button>-->
+    <button id="boardList">게시판 이동</button>
 </div>
 </body>
 </html>
