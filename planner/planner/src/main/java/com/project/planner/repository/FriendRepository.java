@@ -24,11 +24,11 @@ public interface FriendRepository extends JpaRepository<FriendEntity, Integer> {
     void updateFriendStatus(@Param("myId") String myId, @Param("friendId") String friendId);    // 친구 요청을 수락으로 변경
 
     @Modifying
-    @Query("DELETE FROM FriendEntity f WHERE f.status = 'REQUESTED' AND EXISTS(SELECT m1 FROM MemberEntity m1 WHERE f.user_no = m1.no AND m1.id = :myId) AND EXISTS(SELECT m2 FROM MemberEntity m2 WHERE f.friend_no = m2.no AND m2.id = :myId)")
+    @Query("DELETE FROM FriendEntity f WHERE f.status = 'REQUESTED' AND EXISTS(SELECT m1 FROM MemberEntity m1 WHERE f.user_no = m1.no AND m1.id = :myId) AND EXISTS(SELECT m2 FROM MemberEntity m2 WHERE f.friend_no = m2.no AND m2.id = :friendId)")
     void refusalFriend(@Param("myId") String myId, @Param("friendId") String friendId);  // 친구 요청 거절
 
     @Modifying
-    @Query("DELETE FROM FriendEntity f WHERE EXISTS(SELECT m1 FROM MemberEntity m1 WHERE f.user_no = m1.no AND m1.id = :myId) AND EXISTS(SELECT m2 FROM MemberEntity m2 WHERE f.friend_no = m2.no AND m2.id = :myId)")
+    @Query("DELETE FROM FriendEntity f WHERE EXISTS(SELECT m1 FROM MemberEntity m1 WHERE f.user_no = m1.no AND m1.id = :myId) AND EXISTS(SELECT m2 FROM MemberEntity m2 WHERE f.friend_no = m2.no AND m2.id = :friendId)")
     void deleteFriend(@Param("myId") String myId, @Param("friendId") String friendId);  // 친구 요청 거절
 
 }
