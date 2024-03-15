@@ -3,6 +3,7 @@ package com.project.planner.controller;
 import com.project.planner.dto.*;
 import com.project.planner.service.MemberService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.annotation.Secured;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.User;
@@ -17,7 +18,7 @@ import javax.servlet.http.HttpSession;
 import java.util.List;
 
 @Controller // SpringBoot
-@RequestMapping("/member")  // SpringBoot
+@RequestMapping("/member/")  // SpringBoot
 public class MemberController {
 
     @Autowired  // SpringBoot
@@ -39,11 +40,11 @@ public class MemberController {
         return start + result + end;    // {"result":"result"}
     }
 
-    @ResponseBody
-    @PostMapping("/#signUp")
+    @PostMapping("/signUp")
     public String signUp(@ModelAttribute SignUpDto signUpDto, Model model) {
-
+        System.out.println("signUp 컨트롤");
         boolean result = memberService.signUp(signUpDto);
+        System.out.println("signUp 컨트롤2");
 
         if (result) {
             model.addAttribute("msg", "회원가입 성공");
@@ -53,7 +54,7 @@ public class MemberController {
         return "./#signup";
     }
 
-    @PostMapping("/#login")
+    @PostMapping("/login")
     public String login(LoginDto loginDto, HttpSession session) {
 
         MemberDetailsDto member = memberService.login(loginDto);
@@ -74,21 +75,22 @@ public class MemberController {
         return "redirect:/";
     }
 
-    @GetMapping("/#idFind")
-    public String idFind(@ModelAttribute FindDto findDto, Model model) {
+    @PostMapping("/accountFind")
+    public String accountFind(@ModelAttribute FindDto findDto, Model model) {
 
-        List<FindDto> idList = memberService.idFind(findDto);
+        // ID 찾기
+        if (findDto.getEmail() != null) {
 
-        model.addAttribute("idList", idList);
+            // email 넣으면 id 리스트가 나옵니다.
+            List<FindDto> idList = memberService.idFind(findDto);
 
-        return "./#idSearchResult";
-    }
+            model.addAttribute("idList", idList);
 
-    @PostMapping("/#pwFind")
-    public String pwFind(@ModelAttribute FindDto findDto) {
-
-        memberService.pwFind(findDto);
-
+            return "./members/find";
+        } else {
+            // PW 찾기
+            memberService.pwFind(findDto);
+        }
         return "redirect:/";
     }
 
@@ -112,9 +114,9 @@ public class MemberController {
     }
 
     @PutMapping("/#account/{id}")
-    public String updateMember(@PathVariable String id, @ModelAttribute SignUpDto signUpDto) {
+    public String updateMember(@PathVariable String id, @ModelAttribute AccountDto accountDto) {
 
-        memberService.updateMember(id, signUpDto);
+        memberService.updateMember(id, accountDto);
 
         return "redirect:/";
     }

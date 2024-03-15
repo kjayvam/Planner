@@ -1,9 +1,6 @@
 package com.project.planner.service;
 
-import com.project.planner.dto.FindDto;
-import com.project.planner.dto.LoginDto;
-import com.project.planner.dto.MemberDetailsDto;
-import com.project.planner.dto.SignUpDto;
+import com.project.planner.dto.*;
 import com.project.planner.entity.MemberEntity;
 import com.project.planner.repository.MemberRepository;
 import org.modelmapper.ModelMapper;
@@ -42,15 +39,21 @@ public class MemberService {
     }
 
     public boolean signUp(SignUpDto signUpDto) {
+        System.out.println("signUp 서비스");
 
         MemberEntity member = new MemberEntity();
         modelMapper.map(signUpDto, member);
+        System.out.println("signUp 서비스2");
 
         if (signUpDto != null) {
 
             String encodedPw = passwordEncoder.encode(signUpDto.getPw());
             member.setPw(encodedPw);
+            System.out.println("signUp 서비스3");
+//== 에러 발생 구간
             memberRepository.save(member);
+//== 에러 발생 구간
+            System.out.println("signUp 서비스4");
 
             return true;
         }
@@ -107,23 +110,23 @@ public class MemberService {
         memberRepository.updatePassword(id, encodedPw);
     }
 
-    public void updateMember(String id, SignUpDto signUpDto) {
+    public void updateMember(String id, AccountDto accountDto) {
 
         MemberEntity member = memberRepository.findAllById(id);
 
-        if (signUpDto.getProfile() != null) {
-            member.setProfile(signUpDto.getProfile());
+        if (accountDto.getProfile() != null) {
+            member.setProfile(accountDto.getProfile());
         }
-        if (signUpDto.getName() != null) {
-            member.setName(signUpDto.getName());
-        }
-
-        if (signUpDto.getNickname() != null) {
-            member.setNickname(signUpDto.getNickname());
+        if (accountDto.getName() != null) {
+            member.setName(accountDto.getName());
         }
 
-        if (signUpDto.getEmail() != null) {
-            member.setEmail(signUpDto.getEmail());
+        if (accountDto.getNickname() != null) {
+            member.setNickname(accountDto.getNickname());
+        }
+
+        if (accountDto.getEmail() != null) {
+            member.setEmail(accountDto.getEmail());
         }
 
         memberRepository.save(member);

@@ -19,7 +19,7 @@
 
 
         <div class="col-6" th:fragment="form-find">
-            <form action="#" method="post">
+            <form action="member/accountFind" method="post">
                 <!-- id/pwd찾기 화면 -->
                 <ul class="nav nav-tabs">
                     <li class="nav-item w-50">
@@ -47,6 +47,9 @@
                 </div>
                 <p></p>
                 <button class="w-100 btn btn-lg btn_color" type="submit">찾기</button>
+                <div class="mt-3" th:each="idList:${idlist}">
+                    <p th:text="${idList.id}">ID 리스트 보기</p>
+                </div>
             </form>
         </div>
 
