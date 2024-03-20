@@ -3,7 +3,7 @@ package com.project.planner.controller;
 import com.project.planner.dto.*;
 import com.project.planner.service.MemberService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.access.annotation.Secured;
+import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.User;
@@ -40,11 +40,10 @@ public class MemberController {
         return start + result + end;    // {"result":"result"}
     }
 
-    @PostMapping("/signUp")
+    @PostMapping("/member/signUp")
     public String signUp(@ModelAttribute SignUpDto signUpDto, Model model) {
-        System.out.println("signUp 컨트롤");
+
         boolean result = memberService.signUp(signUpDto);
-        System.out.println("signUp 컨트롤2");
 
         if (result) {
             model.addAttribute("msg", "회원가입 성공");
@@ -55,13 +54,22 @@ public class MemberController {
     }
 
     @PostMapping("/login")
-    public String login(LoginDto loginDto, HttpSession session) {
+    public String login(@ModelAttribute LoginDto loginDto, HttpSession session) {
 
+        // 객체 생성 = 로그인 정보 받기
         MemberDetailsDto member = memberService.login(loginDto);
 
-        session.setAttribute("member", member);
+        // Security 인증 객체 생성 (id, pw)
+        Authentication authentication = new UsernamePasswordAuthenticationToken(member.getUsername(), member.getPassword());
+        // 홈페이지 어디서든 인증 정보 확인 가능
+        SecurityContextHolder.getContext().setAuthentication(authentication);
 
-        return "redirect:/";
+        // session에 회원 ID 저장
+        session.setAttribute("ID", member.getMember().getId());
+
+//        return "forward:/";
+//        return "redirect:/";
+        return "members/signup";
     }
 
     @PostMapping("/#logout")
@@ -75,7 +83,7 @@ public class MemberController {
         return "redirect:/";
     }
 
-    @PostMapping("/accountFind")
+    @PostMapping("/#accountFind")
     public String accountFind(@ModelAttribute FindDto findDto, Model model) {
 
         // ID 찾기
@@ -112,6 +120,19 @@ public class MemberController {
 
         return "./#account";
     }
+/*
+
+    @PostMapping("/#account")
+    public String account(Authentication authentication) {
+        MemberDetailsDto member = memberService.login();
+
+        session.setAttribute("member", member);
+        System.out.println(session.getId());
+        System.out.println(session.get());
+
+        return "./#account";
+    }
+*/
 
     @PutMapping("/#account/{id}")
     public String updateMember(@PathVariable String id, @ModelAttribute AccountDto accountDto) {

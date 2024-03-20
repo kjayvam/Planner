@@ -2,17 +2,15 @@ package com.project.planner.entity;
 
 import lombok.Getter;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import javax.persistence.*;
 
-@Entity // JPA
-@Getter   // Lombok
+@Entity
+@Table(name = "schedule")
+@Getter
 public class ScheduleEntity {
 
-    @Id // JPA
-    @GeneratedValue(strategy = GenerationType.IDENTITY) // JPA
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer no;
     private String color;           //  색상
     private String title;           //  제목

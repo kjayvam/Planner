@@ -5,6 +5,7 @@ import lombok.Data;
 import javax.persistence.*;
 
 @Entity // JPA
+@Table(name = "member") // JPA
 @Data   // Lombok
 public class MemberEntity {
 

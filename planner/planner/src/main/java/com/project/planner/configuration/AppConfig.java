@@ -5,6 +5,7 @@ import org.modelmapper.ModelMapper;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
+import org.springframework.security.config.annotation.web.builders.WebSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
@@ -35,7 +36,7 @@ public class AppConfig {
         // 로그인 성공시 세션 보호
         http.sessionManagement().sessionFixation().changeSessionId();
         // CSRF 방어 기능은 활성화된 채로, /member/signUp 요청 시 전달되는 CSRF 토큰을 검증하지 않도록 예외 처리
-        http.csrf().ignoringAntMatchers("/member/signUp");
+        http.csrf().ignoringAntMatchers("/", "/member/signUp", "/member/login");
 
         // (임시) csrf 동장되면 post를 할때 같이 보내줘야 이동이 된다.
         // post 요청 시 <input type="hidden" name="_csrf" value="{{_csrf.token}}" />

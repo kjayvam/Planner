@@ -2,16 +2,14 @@ package com.project.planner.entity;
 
 import lombok.Getter;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import javax.persistence.*;
 
-@Entity // JPA
-@Getter   // Lombok
+@Entity
+@Table(name = "plan_item")
+@Getter
 public class PlansEntity {
 
-    @Id // JPA
+    @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY) // JPA
     private Integer no;
     private String color;           //  색상

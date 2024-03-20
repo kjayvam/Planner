@@ -39,18 +39,21 @@ public class MemberService {
     }
 
     public boolean signUp(SignUpDto signUpDto) {
-        System.out.println("signUp 서비스");
 
         MemberEntity member = new MemberEntity();
         modelMapper.map(signUpDto, member);
-        System.out.println("signUp 서비스2");
 
         if (signUpDto != null) {
 
             String encodedPw = passwordEncoder.encode(signUpDto.getPw());
             member.setPw(encodedPw);
-            System.out.println("signUp 서비스3");
 //== 에러 발생 구간
+            System.out.println(member.getId());
+            System.out.println(member.getPw());
+            System.out.println(member.getName());
+            System.out.println(member.getNickname());
+            System.out.println(member.getEmail());
+
             memberRepository.save(member);
 //== 에러 발생 구간
             System.out.println("signUp 서비스4");
@@ -62,14 +65,25 @@ public class MemberService {
 
     public MemberDetailsDto login(LoginDto loginDto) {
 
-        String encodedPw = memberRepository.findById(loginDto.getId()).getPw();
-
+        String encodedPw = memberRepository.findAllById(loginDto.getId()).getPw();
         MemberDetailsDto member = memberRepository.findAllBy(loginDto.getId());
         if (passwordEncoder.matches(loginDto.getPw(), encodedPw)) {
             return member;
         }
         return null;
     }
+/*
+
+    public MemberDetailsDto account(LoginDto loginDto) {
+
+        String encodedPw = memberRepository.findAllById(loginDto.getId()).getPw();
+        MemberDetailsDto member = memberRepository.findAllBy(loginDto.getId());
+        if (passwordEncoder.matches(loginDto.getPw(), encodedPw)) {
+            return member;
+        }
+        return null;
+    }
+*/
 
     public List<FindDto> idFind(FindDto findDto) {
 
