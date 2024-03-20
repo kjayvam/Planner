@@ -1,37 +1,29 @@
 package com.project.planner.configuration;
 
+import lombok.AllArgsConstructor;
 import org.modelmapper.ModelMapper;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.security.authentication.AuthenticationManager;
+import org.springframework.security.config.annotation.authentication.configuration.AuthenticationConfiguration;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
 
-//@AllArgsConstructor // Lombok
+@AllArgsConstructor // Lombok
 @Configuration  // SpringFramework
 @EnableWebSecurity  // security
 public class AppConfig {
-/*
-
-    private final UserDetailsService userDetailsService;
-    private final PasswordEncoder passwordEncoder;
-
-    public AppConfig(UserDetailsService userDetailsService, PasswordEncoder passwordEncoder) {
-        this.userDetailsService = userDetailsService;
-        this.passwordEncoder = passwordEncoder;
-    }
-
-    @Bean   // 사용자의 인증 정보를 검증
-    public AuthenticationManager authenticationManager(HttpSecurity http, AuthenticationManagerBuilder auth) throws Exception {
-        auth.userDetailsService(userDetailsService).passwordEncoder(passwordEncoder);
-        return http.getSharedObject(AuthenticationManagerBuilder.class).build();
-    }
-*/
 
     @Bean   // SpringFramework
     public BCryptPasswordEncoder passwordEncoder() {
         return new BCryptPasswordEncoder();
+    }
+
+    @Bean
+    public AuthenticationManager authenticationManager(AuthenticationConfiguration authenticationConfiguration) throws Exception {
+        return authenticationConfiguration.getAuthenticationManager();
     }
 
     @Bean
@@ -50,7 +42,7 @@ public class AppConfig {
         // 로그인 성공시 세션 보호
         http.sessionManagement().sessionFixation().changeSessionId();
         // CSRF 방어 기능은 활성화된 채로, /member/signUp 요청 시 전달되는 CSRF 토큰을 검증하지 않도록 예외 처리
-        http.csrf().ignoringAntMatchers("/", "/member/signUp", "/member/login");
+        http.csrf().ignoringAntMatchers("/", "/member/signup", "/member/login");
 
         // (임시) csrf 동장되면 post를 할때 같이 보내줘야 이동이 된다.
         // post 요청 시 <input type="hidden" name="_csrf" value="{{_csrf.token}}" />

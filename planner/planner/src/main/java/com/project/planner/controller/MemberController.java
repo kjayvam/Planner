@@ -8,6 +8,7 @@ import org.springframework.security.authentication.UsernamePasswordAuthenticatio
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.User;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.web.authentication.logout.SecurityContextLogoutHandler;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -23,10 +24,10 @@ import java.util.List;
 public class MemberController {
 
     @Autowired  // SpringBoot
-    MemberService memberService;/*
+    private MemberService memberService;
     @Autowired
     private AuthenticationManager authenticationManager;
-*/
+
     @ResponseBody   // SpringBoot
     @PostMapping("/#idCheck")  // SpringBoot
     public String idCheck(@RequestParam("id") String id) {  // SpringBoot
@@ -57,27 +58,31 @@ public class MemberController {
     }
 
     @PostMapping("/login")
-    public String login(@ModelAttribute LoginDto loginDto, HttpSession session) {
+    public String login(@ModelAttribute LoginDto loginDto) {
 
         // 객체 생성 = 로그인 정보 받기
         MemberDetailsDto member = memberService.login(loginDto);
+        if (member == null) {
+            return "redirect:/members/login?error=true";
+        }
 
-        // Security 인증 객체 생성 (id, pw)
-        Authentication authentication = new UsernamePasswordAuthenticationToken(member.getUsername(), member.getPassword());
-        // 홈페이지 어디서든 인증 정보 확인 가능
-        SecurityContextHolder.getContext().setAuthentication(authentication);
+        try {
+            // 인증 토큰 생성
+            UsernamePasswordAuthenticationToken authToken = new UsernamePasswordAuthenticationToken(loginDto.getId(), loginDto.getPw());
+            // 정상인지 로그인 시도 해봄. authenticationManager로 로그인 시도를 하면
+            // PrincipalDetailsService가 호출 loadUserByUsername() 함수가 실행된 후 정상이면 authentication이 리턴됨.
+            // authentication이 정상 리턴된다는 것은 -> DB에 있는 username과 password가 일치한다는 것.
+            Authentication authentication = authenticationManager.authenticate(authToken);
+            // 홈페이지 어디서든 인증 정보 확인 가능
+            SecurityContextHolder.getContext().setAuthentication(authentication);
 
-        // session에 회원 ID 저장
-        session.setAttribute("ID", member.getMember().getId());
-        // Security Context를 통해 사용자 인증을 관리 합니다. 세션에 사용자 정보를 저장하는 것은 필요한 경우에만 사용해야함
-//        UsernamePasswordAuthenticationToken authReq = new UsernamePasswordAuthenticationToken(member.getUsername(), member.getPassword());
-//        Authentication auth = authenticationManager.authenticate(authReq);
-//
-//        SecurityContextHolder.getContext().setAuthentication(auth);
-
+            return "members/signup";    // 인증 성공 후 리디렉트할 경로
+        } catch (Exception e) {
 //        return "forward:/";
 //        return "redirect:/";
-        return "redirect:/members/signup";
+            e.printStackTrace();
+            return "redirect:/members/login";   // 인증 실패 시 리디렉트할 경로
+        }
     }
 
     @PostMapping("/#logout")
@@ -128,19 +133,32 @@ public class MemberController {
 
         return "./#account";
     }
-/*
 
     @PostMapping("/#account")
-    public String account(Authentication authentication) {
-        MemberDetailsDto member = memberService.login();
+    public String account(Authentication authentication, Model model) {
+//        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
 
-        session.setAttribute("member", member);
-        System.out.println(session.getId());
-        System.out.println(session.get());
+        // Authentication 객체가 null이 아니고, 사용자가 인증된 상태인지 확인합니다.
+        if (authentication != null && authentication.isAuthenticated()) {
+            String id = null;
+            // 주요 사용자 정보(Principal)를 가져옵니다.
+            Object principal = authentication.getPrincipal();
+
+            // 상속, 클래스 비교
+            if (principal instanceof UserDetails) {
+                // id 가져오기
+                id = ((UserDetails) principal).getUsername();
+            } else {
+                id = principal.toString();
+            }
+
+            System.out.println("Current user: " + id);
+            // 사용자 정보 view에 보내기
+            model.addAttribute("Details", principal);
+        }
 
         return "./#account";
     }
-*/
 
     @PutMapping("/#account/{id}")
     public String updateMember(@PathVariable String id, @ModelAttribute AccountDto accountDto) {

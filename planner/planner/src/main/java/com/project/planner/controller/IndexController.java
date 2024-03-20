@@ -12,8 +12,8 @@ public class IndexController {
 //        String id = SecurityContextHolder.getContext().getAuthentication().getName();
 
 //        return "members/login";
-        return "members/signup";
-//        return "members/login";
+//        return "members/signup";
+        return "members/login";
 //        return "members/signup";
 //        return "index";
     }

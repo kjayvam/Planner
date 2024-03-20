@@ -57,8 +57,8 @@ public class MemberService {
 
     public MemberDetailsDto login(LoginDto loginDto) {
 
-        String encodedPw = memberRepository.findAllById(loginDto.getId()).getPw();
         MemberDetailsDto member = memberRepository.findAllBy(loginDto.getId());
+        String encodedPw = member.getPassword();
         if (passwordEncoder.matches(loginDto.getPw(), encodedPw)) {
             return member;
         }
