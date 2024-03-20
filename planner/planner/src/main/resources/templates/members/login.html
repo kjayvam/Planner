@@ -10,9 +10,9 @@
     <!--기본 셋팅-->
     <link rel="stylesheet" href="/static/css/setting.css" type="text/css">
     <!--버튼 스타일-->
-    <th:block th:replace="~{members/layouts/member-logo :: css_logo}"/>
-    <th:block th:replace="~{members/layouts/member-login :: css_btn_form}"/>
-    <th:block th:replace="~{members/layouts/member-service :: css_btn_service}"/>
+    <th:block th:replace="~{/members/layouts/member-logo :: css_logo}"/>
+    <th:block th:replace="~{/members/layouts/member-login :: css_btn_form}"/>
+    <th:block th:replace="~{/members/layouts/member-service :: css_btn_service}"/>
     <script src="/static/js/btn-href-controller.js"></script>
 </head>
 
@@ -27,9 +27,9 @@
         <div th:replace="members/layouts/member-image :: image-content"><!--이미지--></div>
         <!-- 로그인 화면 -->
         <div class="col-6">
-            <div th:replace="members/layouts/member-logo :: logo-member"><!--로고--></div>
-            <div th:replace="members/layouts/member-login :: form-login"><!--로그인 폼--></div>
-            <div th:replace="members/layouts/member-service :: member-service"><!--회원서비스--></div>
+            <div th:replace="~{/members/layouts/member-logo :: logo-member}"><!--로고--></div>
+            <div th:replace="~{/members/layouts/member-login :: form-login}"><!--로그인 폼--></div>
+            <div th:replace="~{/members/layouts/member-service :: member-service}"><!--회원서비스--></div>
         </div>
     </div>
 </div>

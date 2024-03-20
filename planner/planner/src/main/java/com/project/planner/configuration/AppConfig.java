@@ -1,19 +1,33 @@
 package com.project.planner.configuration;
 
-import lombok.AllArgsConstructor;
 import org.modelmapper.ModelMapper;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
-import org.springframework.security.config.annotation.web.builders.WebSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
 
-@AllArgsConstructor // Lombok
+//@AllArgsConstructor // Lombok
 @Configuration  // SpringFramework
 @EnableWebSecurity  // security
 public class AppConfig {
+/*
+
+    private final UserDetailsService userDetailsService;
+    private final PasswordEncoder passwordEncoder;
+
+    public AppConfig(UserDetailsService userDetailsService, PasswordEncoder passwordEncoder) {
+        this.userDetailsService = userDetailsService;
+        this.passwordEncoder = passwordEncoder;
+    }
+
+    @Bean   // 사용자의 인증 정보를 검증
+    public AuthenticationManager authenticationManager(HttpSecurity http, AuthenticationManagerBuilder auth) throws Exception {
+        auth.userDetailsService(userDetailsService).passwordEncoder(passwordEncoder);
+        return http.getSharedObject(AuthenticationManagerBuilder.class).build();
+    }
+*/
 
     @Bean   // SpringFramework
     public BCryptPasswordEncoder passwordEncoder() {

@@ -47,16 +47,8 @@ public class MemberService {
 
             String encodedPw = passwordEncoder.encode(signUpDto.getPw());
             member.setPw(encodedPw);
-//== 에러 발생 구간
-            System.out.println(member.getId());
-            System.out.println(member.getPw());
-            System.out.println(member.getName());
-            System.out.println(member.getNickname());
-            System.out.println(member.getEmail());
 
             memberRepository.save(member);
-//== 에러 발생 구간
-            System.out.println("signUp 서비스4");
 
             return true;
         }

@@ -3,6 +3,7 @@ package com.project.planner.controller;
 import com.project.planner.dto.*;
 import com.project.planner.service.MemberService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -18,12 +19,14 @@ import javax.servlet.http.HttpSession;
 import java.util.List;
 
 @Controller // SpringBoot
-@RequestMapping("/member/")  // SpringBoot
+@RequestMapping("/member")  // SpringBoot
 public class MemberController {
 
     @Autowired  // SpringBoot
-    MemberService memberService;
-
+    MemberService memberService;/*
+    @Autowired
+    private AuthenticationManager authenticationManager;
+*/
     @ResponseBody   // SpringBoot
     @PostMapping("/#idCheck")  // SpringBoot
     public String idCheck(@RequestParam("id") String id) {  // SpringBoot
@@ -40,7 +43,7 @@ public class MemberController {
         return start + result + end;    // {"result":"result"}
     }
 
-    @PostMapping("/member/signUp")
+    @PostMapping("/signUp")
     public String signUp(@ModelAttribute SignUpDto signUpDto, Model model) {
 
         boolean result = memberService.signUp(signUpDto);
@@ -66,10 +69,15 @@ public class MemberController {
 
         // session에 회원 ID 저장
         session.setAttribute("ID", member.getMember().getId());
+        // Security Context를 통해 사용자 인증을 관리 합니다. 세션에 사용자 정보를 저장하는 것은 필요한 경우에만 사용해야함
+//        UsernamePasswordAuthenticationToken authReq = new UsernamePasswordAuthenticationToken(member.getUsername(), member.getPassword());
+//        Authentication auth = authenticationManager.authenticate(authReq);
+//
+//        SecurityContextHolder.getContext().setAuthentication(auth);
 
 //        return "forward:/";
 //        return "redirect:/";
-        return "members/signup";
+        return "redirect:/members/signup";
     }
 
     @PostMapping("/#logout")
