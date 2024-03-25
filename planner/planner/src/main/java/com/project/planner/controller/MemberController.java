@@ -51,7 +51,7 @@ public class MemberController {
 
         if (result) {
             model.addAttribute("msg", "회원가입 성공");
-            return "redirect:/";
+            return "index";
         }
         model.addAttribute("msg", "회원가입 실패");
         return "./#signup";
@@ -78,8 +78,6 @@ public class MemberController {
 
             return "members/signup";    // 인증 성공 후 리디렉트할 경로
         } catch (Exception e) {
-//        return "forward:/";
-//        return "redirect:/";
             e.printStackTrace();
             return "redirect:/members/login";   // 인증 실패 시 리디렉트할 경로
         }
