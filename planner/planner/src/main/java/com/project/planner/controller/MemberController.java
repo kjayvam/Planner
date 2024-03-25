@@ -3,9 +3,12 @@ package com.project.planner.controller;
 import com.project.planner.dto.*;
 import com.project.planner.service.MemberService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.authentication.AuthenticationManager;
+import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.User;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.web.authentication.logout.SecurityContextLogoutHandler;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -21,7 +24,9 @@ import java.util.List;
 public class MemberController {
 
     @Autowired  // SpringBoot
-    MemberService memberService;
+    private MemberService memberService;
+    @Autowired
+    private AuthenticationManager authenticationManager;
 
     @ResponseBody   // SpringBoot
     @PostMapping("/#idCheck")  // SpringBoot
@@ -39,28 +44,43 @@ public class MemberController {
         return start + result + end;    // {"result":"result"}
     }
 
-    @ResponseBody
-    @PostMapping("/#signUp")
+    @PostMapping("/signUp")
     public String signUp(@ModelAttribute SignUpDto signUpDto, Model model) {
 
         boolean result = memberService.signUp(signUpDto);
 
         if (result) {
             model.addAttribute("msg", "회원가입 성공");
-            return "redirect:/";
+            return "index";
         }
         model.addAttribute("msg", "회원가입 실패");
         return "./#signup";
     }
 
-    @PostMapping("/#login")
-    public String login(LoginDto loginDto, HttpSession session) {
+    @PostMapping("/login")
+    public String login(@ModelAttribute LoginDto loginDto) {
 
+        // 객체 생성 = 로그인 정보 받기
         MemberDetailsDto member = memberService.login(loginDto);
+        if (member == null) {
+            return "redirect:/members/login?error=true";
+        }
 
-        session.setAttribute("member", member);
+        try {
+            // 인증 토큰 생성
+            UsernamePasswordAuthenticationToken authToken = new UsernamePasswordAuthenticationToken(loginDto.getId(), loginDto.getPw());
+            // 정상인지 로그인 시도 해봄. authenticationManager로 로그인 시도를 하면
+            // PrincipalDetailsService가 호출 loadUserByUsername() 함수가 실행된 후 정상이면 authentication이 리턴됨.
+            // authentication이 정상 리턴된다는 것은 -> DB에 있는 username과 password가 일치한다는 것.
+            Authentication authentication = authenticationManager.authenticate(authToken);
+            // 홈페이지 어디서든 인증 정보 확인 가능
+            SecurityContextHolder.getContext().setAuthentication(authentication);
 
-        return "redirect:/";
+            return "members/signup";    // 인증 성공 후 리디렉트할 경로
+        } catch (Exception e) {
+            e.printStackTrace();
+            return "redirect:/members/login";   // 인증 실패 시 리디렉트할 경로
+        }
     }
 
     @PostMapping("/#logout")
@@ -74,21 +94,22 @@ public class MemberController {
         return "redirect:/";
     }
 
-    @GetMapping("/#idFind")
-    public String idFind(@ModelAttribute FindDto findDto, Model model) {
+    @PostMapping("/#accountFind")
+    public String accountFind(@ModelAttribute FindDto findDto, Model model) {
 
-        List<FindDto> idList = memberService.idFind(findDto);
+        // ID 찾기
+        if (findDto.getEmail() != null) {
 
-        model.addAttribute("idList", idList);
+            // email 넣으면 id 리스트가 나옵니다.
+            List<FindDto> idList = memberService.idFind(findDto);
 
-        return "./#idSearchResult";
-    }
+            model.addAttribute("idList", idList);
 
-    @PostMapping("/#pwFind")
-    public String pwFind(@ModelAttribute FindDto findDto) {
-
-        memberService.pwFind(findDto);
-
+            return "./members/find";
+        } else {
+            // PW 찾기
+            memberService.pwFind(findDto);
+        }
         return "redirect:/";
     }
 
@@ -111,10 +132,36 @@ public class MemberController {
         return "./#account";
     }
 
-    @PutMapping("/#account/{id}")
-    public String updateMember(@PathVariable String id, @ModelAttribute SignUpDto signUpDto) {
+    @PostMapping("/#account")
+    public String account(Authentication authentication, Model model) {
+//        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
 
-        memberService.updateMember(id, signUpDto);
+        // Authentication 객체가 null이 아니고, 사용자가 인증된 상태인지 확인합니다.
+        if (authentication != null && authentication.isAuthenticated()) {
+            String id = null;
+            // 주요 사용자 정보(Principal)를 가져옵니다.
+            Object principal = authentication.getPrincipal();
+
+            // 상속, 클래스 비교
+            if (principal instanceof UserDetails) {
+                // id 가져오기
+                id = ((UserDetails) principal).getUsername();
+            } else {
+                id = principal.toString();
+            }
+
+            System.out.println("Current user: " + id);
+            // 사용자 정보 view에 보내기
+            model.addAttribute("Details", principal);
+        }
+
+        return "./#account";
+    }
+
+    @PutMapping("/#account/{id}")
+    public String updateMember(@PathVariable String id, @ModelAttribute AccountDto accountDto) {
+
+        memberService.updateMember(id, accountDto);
 
         return "redirect:/";
     }

@@ -11,6 +11,10 @@ public class IndexController {
         // 현재 인증된 사용자의 아이디를 얻어오는 코드
 //        String id = SecurityContextHolder.getContext().getAuthentication().getName();
 
-        return "index";
+//        return "members/login";
+//        return "members/signup";
+        return "members/login";
+//        return "members/signup";
+//        return "index";
     }
 }

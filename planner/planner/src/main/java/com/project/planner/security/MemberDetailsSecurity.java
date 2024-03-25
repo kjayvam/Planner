@@ -17,7 +17,7 @@ public class MemberDetailsSecurity implements UserDetailsService {
 
     @Override
     public UserDetails loadUserByUsername(String id) throws UsernameNotFoundException {
-        MemberEntity member = memberRepository.findById(id);
+        MemberEntity member = memberRepository.findAllById(id);
 
         if (member != null) {
             return new MemberDetailsDto(member);

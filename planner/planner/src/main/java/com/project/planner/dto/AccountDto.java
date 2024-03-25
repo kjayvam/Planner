@@ -1,20 +1,11 @@
-package com.project.planner.entity;
+package com.project.planner.dto;
 
 import lombok.Data;
 
-import javax.persistence.*;
-
-@Entity // JPA
-@Table(name = "member") // JPA
 @Data   // Lombok
-public class MemberEntity {
+public class AccountDto {
 
-    @Id // JPA
-    @GeneratedValue(strategy = GenerationType.IDENTITY) // JPA
-    private Integer no;
-    @Column(unique = true)
     private String id;          //  아이디
-    @Column(name = "pw")
     private String pw;          //  비밀번호
     private String profile;     //  프로필 사진
     private String name;        //  이름

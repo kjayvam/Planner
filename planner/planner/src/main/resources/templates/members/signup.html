@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="UTF-8">
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -8,8 +8,8 @@
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.bundle.min.js" integrity="sha384-HwwvtgBNo3bZJJLYd8oVXjrBZt8cqVSpeBNS5n7C8IVInixGAoxmnlMuBnhbgrkm" crossorigin="anonymous"></script>
     <link rel="stylesheet" href="/static/css/setting.css" type="text/css">
     <!--버튼 스타일-->
-    <th:block th:replace="~{members/layouts/member-logo :: css_logo}"/>
-    <th:block th:replace="~{members/layouts/member-login :: css_btn_form}"/>
+    <th:block th:replace="~{/members/layouts/member-logo :: css_logo}"/>
+    <th:block th:replace="~{/members/layouts/member-signup :: css_btn_form}"/>
     <script src="/static/js/btn-href-controller.js"></script>
 </head>
 <body class="text-center">
@@ -20,11 +20,11 @@
     <!-- align-items-center: 수직중앙정렬 -->
     <!-- justify-content-center : 가로중앙정렬 -->
     <div class="row d-flex align-items-center h-100 justify-content-center"> <!-- 이 영역은 콘텐츠 2개를 포함합니다.-->
-        <div th:replace="members/layouts/member-image :: image-content"><!--이미지--></div>
+        <div th:replace="~{/members/layouts/member-image :: image-content}"><!--이미지--></div>
         <!-- 회원가입 화면 -->
         <div class="col-md-6 ">
-            <div th:replace="members/layouts/member-logo :: logo-member"><!--로고--></div>
-            <div th:replace="members/layouts/member-signup :: form-signup"><!--회원가입 폼--></div>
+            <div th:replace="~{/members/layouts/member-logo :: logo-member}"><!--로고--></div>
+            <div th:replace="~{/members/layouts/member-signup :: form-signup}"><!--회원가입 폼--></div>
         </div>
     </div>
 </div>

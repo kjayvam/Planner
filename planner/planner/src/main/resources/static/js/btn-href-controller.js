@@ -10,11 +10,11 @@ function onClickEvent() {
     function indexMove() {
         location.href = '/';
     }
-    btn-href-controller
+
     /* id 찾기 버튼 - id 찾기 이동 */
     let idBtns = document.getElementsByName('moveIdBtn');
 
-    for(let i = 0; i < idBtns.length; i++) {
+    for (let i = 0; i < idBtns.length; i++) {
         idBtns[i].addEventListener('click', idMove);
     }
 
@@ -25,7 +25,7 @@ function onClickEvent() {
     /* pw 찾기 버튼 - pw 찾기 이동 */
     let pwBtns = document.getElementsByName('movePwBtn');
 
-    for(let i = 0; i < pwBtns.length; i++) {
+    for (let i = 0; i < pwBtns.length; i++) {
         pwBtns[i].addEventListener('click', pwMove);
     }
 
@@ -36,7 +36,7 @@ function onClickEvent() {
     /* 회원가입 버튼 - 회원가입 이동 */
     let signupBtns = document.getElementsByName('moveSignupBtn');
 
-    for(let i = 0; i < signupBtns.length; i++) {
+    for (let i = 0; i < signupBtns.length; i++) {
         signupBtns[i].addEventListener('click', signupMove);
     }
 
