@@ -76,7 +76,7 @@ public class MemberController {
             // 홈페이지 어디서든 인증 정보 확인 가능
             SecurityContextHolder.getContext().setAuthentication(authentication);
 
-            return "members/signup";    // 인증 성공 후 리디렉트할 경로
+            return "redirect:/";    // 인증 성공 후 리디렉트할 경로
         } catch (Exception e) {
             e.printStackTrace();
             return "redirect:/members/login";   // 인증 실패 시 리디렉트할 경로
