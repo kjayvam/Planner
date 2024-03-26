@@ -38,7 +38,7 @@ public class MemberService {
         return false;
     }
 
-    public boolean signUp(SignUpDto signUpDto) {
+    public boolean signup(SignUpDto signUpDto) {
 
         MemberEntity member = new MemberEntity();
         modelMapper.map(signUpDto, member);

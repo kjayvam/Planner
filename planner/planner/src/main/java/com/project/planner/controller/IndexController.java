@@ -13,8 +13,6 @@ public class IndexController {
 
 //        return "members/login";
 //        return "members/signup";
-//        return "members/login";
-//        return "members/signup";
         return "index";
     }
 }

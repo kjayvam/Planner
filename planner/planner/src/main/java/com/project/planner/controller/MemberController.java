@@ -44,10 +44,10 @@ public class MemberController {
         return start + result + end;    // {"result":"result"}
     }
 
-    @PostMapping("/signUp")
-    public String signUp(@ModelAttribute SignUpDto signUpDto, Model model) {
+    @PostMapping("/signup")
+    public String signup(@ModelAttribute SignUpDto signUpDto, Model model) {
 
-        boolean result = memberService.signUp(signUpDto);
+        boolean result = memberService.signup(signUpDto);
 
         if (result) {
             model.addAttribute("msg", "회원가입 성공");

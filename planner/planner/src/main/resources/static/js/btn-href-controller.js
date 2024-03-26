@@ -41,6 +41,6 @@ function onClickEvent() {
     }
 
     function signupMove() {
-        location.href = '/move/join/member';
+        location.href = '/move/signup';
     }
 }

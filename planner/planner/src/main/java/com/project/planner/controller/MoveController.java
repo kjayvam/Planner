@@ -7,8 +7,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 @Controller
 @RequestMapping("/move")
 public class MoveController {
-    @GetMapping("/signUp")
-    public String signUp() {
+    @GetMapping("/signup")
+    public String signup() {
 
         return "members/signup";
     }
