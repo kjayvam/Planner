@@ -21,7 +21,7 @@
 
 
             <div th:fragment="form-signup">
-                <form action="member/signUp" method="POST">
+                <form th:action="@{/member/signup}" method="POST">
                     <div class="form-floating ">
                         <input type="text" class="form-control" id="id" name="id" placeholder="ID 입력...">
                         <label for="id">ID</label>
