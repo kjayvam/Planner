@@ -1,9 +1,11 @@
-const EventListener = 'DOMContentLoaded';
-document.addEventListener(EventListener, onClickEvent);
+const EVENT_LISTENER = 'DOMContentLoaded';
+document.addEventListener(EVENT_LISTENER , onClickEvent);
 
 function onClickEvent() {
 
     /* Logo 버튼 - index 이동 */
+    // let indexBtn = document.querySelector("button[name='moveIndexBtn']");
+    // document.querySelector('.logo').addEventListener('click', indexMove);
     let indexBtn = document.getElementsByName('moveIndexBtn')[0];
     indexBtn.addEventListener('click', indexMove);
 
@@ -11,26 +13,15 @@ function onClickEvent() {
         location.href = '/';
     }
 
-    /* id 찾기 버튼 - id 찾기 이동 */
-    let idBtns = document.getElementsByName('moveIdBtn');
+    /* ID/PW 찾기 버튼 - ID/PW 찾기 이동 */
+    let findBtns = document.getElementsByName('moveFindBtn');
 
-    for (let i = 0; i < idBtns.length; i++) {
-        idBtns[i].addEventListener('click', idMove);
+    for (let i = 0; i < findBtns.length; i++) {
+        findBtns[i].addEventListener('click', findMove);
     }
 
-    function idMove() {
-        location.href = '/move/find/id';
-    }
-
-    /* pw 찾기 버튼 - pw 찾기 이동 */
-    let pwBtns = document.getElementsByName('movePwBtn');
-
-    for (let i = 0; i < pwBtns.length; i++) {
-        pwBtns[i].addEventListener('click', pwMove);
-    }
-
-    function pwMove() {
-        location.href = '/move/find/pw';
+    function findMove() {
+        location.href = '/move/findAccount';
     }
 
     /* 회원가입 버튼 - 회원가입 이동 */

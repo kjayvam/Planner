@@ -19,4 +19,9 @@ public class MoveController {
         return "members/login";
     }
 
+    @GetMapping("/findAccount")
+    public String findAccount() {
+
+        return "members/find";
+    }
 }

@@ -13,7 +13,7 @@
     <th:block th:replace="~{/members/layouts/member-logo :: css_logo}"/>
     <th:block th:replace="~{/members/layouts/member-login :: css_btn_form}"/>
     <th:block th:replace="~{/members/layouts/member-service :: css_btn_service}"/>
-    <script src="/static/js/btn-href-controller.js"></script>
+    <script src="/static/js/btn-href-controller.js" defer></script>
 </head>
 
 <body class="text-center">
@@ -24,7 +24,7 @@
     <!-- align-items-center: 세로중앙정렬 -->
     <!-- justify-content-center : 가로중앙정렬 -->
     <div class="row d-flex align-items-center h-100 justify-content-center"> <!-- 이 영역은 콘텐츠 2개를 포함합니다.-->
-        <div th:replace="members/layouts/member-image :: image-content"><!--이미지--></div>
+        <div th:replace="~{/members/layouts/member-image :: image-content}"><!--이미지--></div>
         <!-- 로그인 화면 -->
         <div class="col-6">
             <div th:replace="~{/members/layouts/member-logo :: logo-member}"><!--로고--></div>

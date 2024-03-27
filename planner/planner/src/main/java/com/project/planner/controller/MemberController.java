@@ -94,8 +94,8 @@ public class MemberController {
         return "redirect:/";
     }
 
-    @PostMapping("/#accountFind")
-    public String accountFind(@ModelAttribute FindDto findDto, Model model) {
+    @PostMapping("/findAccount")
+    public String findAccount(@ModelAttribute FindDto findDto, Model model) {
 
         // ID 찾기
         if (findDto.getEmail() != null) {
@@ -105,7 +105,7 @@ public class MemberController {
 
             model.addAttribute("idList", idList);
 
-            return "./members/find";
+            return "members/find";
         } else {
             // PW 찾기
             memberService.pwFind(findDto);
