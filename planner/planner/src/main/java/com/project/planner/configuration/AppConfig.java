@@ -16,12 +16,12 @@ import org.springframework.security.web.SecurityFilterChain;
 @EnableWebSecurity  // security
 public class AppConfig {
 
-    @Bean   // SpringFramework
+    @Bean   // SpringFramework 비밀번호암호화
     public BCryptPasswordEncoder passwordEncoder() {
         return new BCryptPasswordEncoder();
     }
 
-    @Bean
+    @Bean   // security 로그인시
     public AuthenticationManager authenticationManager(AuthenticationConfiguration authenticationConfiguration) throws Exception {
         return authenticationConfiguration.getAuthenticationManager();
     }
